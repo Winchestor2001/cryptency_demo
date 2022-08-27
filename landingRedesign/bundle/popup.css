@@ -1,0 +1,138 @@
+.popup {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.popup.shown {
+    display: flex!important;
+}
+.popup__wrapper {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: .6;
+    background-color: #000;
+}
+
+.popup-item {
+    width: 700px;
+    height: 400px;
+    position: relative;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    background-color: #000;
+    color: #fff;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 700px 400px;
+}
+
+.popup-item__close {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+    line-height: 32px;
+    cursor: pointer;
+    transition: .2s transform ease;
+    border-radius: 4px;
+}
+.popup-item__close:hover {
+    transform: scale(.9);
+}
+
+.popup-item__content {
+    display: flex;
+    flex-direction: column;
+    padding: 27px;
+}
+
+.popup-item__title {
+    margin-top: 0;
+    margin-bottom: 23px;
+    font-size: 38px;
+    line-height: 48px;
+}
+
+.popup-item__list {
+    margin: 0;
+    padding: 0;
+}
+
+.popup-item__list-item {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.popup-item__link {
+    width: 389px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #1BCE9B;
+    font-size: 22px;
+    line-height: 42px;
+    font-weight: 500;
+    outline: none;
+    text-decoration: none;
+    transition: .2s transform ease;
+    border-radius: 4px;
+}
+
+.popup-item__link:hover{
+    transform: scale(.99);
+}
+
+@media screen and (max-width: 720px) {
+    .popup {
+        overflow: auto;
+    }
+
+    .popup-item {
+        width: calc(100vw - 20px);
+        height: auto;
+    }
+
+    .popup-item__content {
+        padding: 15px;
+    }
+
+    .popup-item__close {
+        right: 0;
+    }
+
+    .popup-item__title {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .popup-item__list {
+        font-size: 14px;
+        line-height: 16px;
+        margin-bottom: 15px;
+    }
+
+    .popup-item__link {
+        width: 100%;
+        max-width: 300px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
