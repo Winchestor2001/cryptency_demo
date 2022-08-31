@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- Fontawesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--page style-->
+    <link rel="stylesheet" href="{% static 'css/user.css' %}?version={{ cach_id }}">
+    <title>Cryptency - Профиль</title>
+</head>
+<body>
+<div id="preloader">
+    <div id="loader"></div>
+</div>
+
+<section class="container-fluid about p-0">
+    <section class="header rgb pb-100 mb-5">
+        <div class="header_menu">
+            <nav class="navbar navbar-expand-lg bg-transparent">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+                             alt="">
+                        <h3 class="fw-bold">Cryptency</h3>
+                    </a>
+                    <button id="btn_header" class="d-block d-lg-none menue_btn bg-transparent" type="button">
+                        <i class="fa-solid fa-bars-staggered fa-2x"></i>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mb-2 mb-lg-0 col justify-content-end me-5 text-uppercase">
+                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="myOfficde"><a href="{% url 'profile' %}">МОЙ
+                                КАБИНЕТ</a></li>
+                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="myAccount"><a
+                                    href="{% url 'profile_accrual' %}">МОИ НАЧИСЛЕНИЯ</a></li>
+                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="withDrawals"><a
+                                    href="{% url 'profile_withdraws' %}">ВЫВОД СРЕДСТВ</a></li>
+                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="contact"><a
+                                    href="{% url 'profile_contacts' %}">Контакты</a></li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="fw-bold fs-13">{{ user_balance }} USD</div>
+                            <div class="menue_img">
+                                {% if user_photo %}
+                                <img class="circle-img"
+                                     src="/media/{{ user_photo }}"
+                                     alt="">
+                                {% else %}
+                                <img class="circle-img"
+                                     src="https://grantek-avto.ru/img/not_images.jpg"
+                                     alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <div class="container-fluid position-relative p-0 px-xl-5 d-flex main_div">
+        <div class="left_content  p-3">
+            <div class="imgDiv get_file">
+                <form id="send_ava" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input name="avatar" onchange="clickInput()" id="get_file_input" type="file" hidden>
+                </form>
+                {% if user_photo %}
+                <img class="circle-img"
+                     src="/media/{{ user_photo }}"
+                     alt="">
+                {% else %}
+                <img class="circle-img"
+                     src="https://grantek-avto.ru/img/not_images.jpg"
+                     alt="">
+                {% endif %}
+                <div class="overlay">
+                    <div class="overlay_icon">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                </div>
+            </div>
+            <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }}</h6>
+            <a href="{% url 'user_purchase' %}" class="btn btn-warning fs-13 my-3 w-100" data-id="purchase">Оформить
+                покупку</a>
+            <br>
+            <div style="cursor: pointer;" class="d-flex justify-content-between mt-2  pe-3"
+                 onclick="copyToClipboard()"
+                 id="ref-link" data-link="{{ ref_link }}">
+                <span class="fs-13 grey">Скопировать промокод</span><i class="fa-solid fa-link"></i>
+            </div>
+
+
+            <ul class="userMenu ">
+                <div class="navbar-nav d-block d-lg-none text-uppercase">
+                    <li class="my-2 fs-14 tap-btn" data-id="myOfficde">
+                        <i class="fa-solid fa-user me-2"></i>
+                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile' %}">МОЙ КАБИНЕТ</a>
+                    </li>
+                    <li class="my-2 fs-14 tap-btn" data-id="myAccount">
+                        <i class="fa-solid fa-bag-shopping me-2"></i>
+                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_accrual' %}">МОИ
+                            НАЧИСЛЕНИЯ</a>
+                    </li>
+                    <li class="my-2 fs-14 tap-btn" data-id="withDrawals">
+                        <i class="fa-solid fa-wallet me-2"></i>
+                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_withdraws' %}">ВЫВОД
+                            СРЕДСТВ</a>
+                    </li>
+                    <li class="my-2 fs-14 tap-btn" data-id="contact">
+                        <i class="fa-solid fa-phone-volume me-2"></i>
+                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_contacts' %}">КОНТАКТЫ</a>
+                    </li>
+                </div>
+
+                <div class="my-3 border-top border-bottom text-secondary">
+                    <li data-id="event_video">
+                        <i class="fa-solid fa-star me-2"></i>
+                        <a style="color:#808080; text-decoration:none;"
+                           href="{% url 'profile_videos' %}">
+                            Видео-ролики</a>
+                    </li>
+
+
+                </div>
+                <li class="tap-btn" data-id="mySettings">
+                    <i class="fa-solid fa-gear me-2"></i>
+                    <a style="color:#808080; text-decoration:none;" href="{% url 'settings_profile' %}">Настройки</a>
+                </li>
+                <li class="tap-btn" data-id="support">
+                    <i class="fa-solid fa-circle-question me-2"></i>
+                    <a style="color:#808080; text-decoration:none;" href="{% url 'profile_support' %}">Обратная
+                        связь</a>
+                </li>
+                <li class="tap-btn">
+                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                    <a href="{% url 'user_login' %}" style="color:#808080; text-decoration:none;">Выход</a>
+                </li>
+                <div class="d-flex align-items-center gap-3 border-top py-2">
+                    <div class="fw-bold fs-13 d-block d-lg-none">{{ user_balance }} USD</div>
+                </div>
+            </ul>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    <section class="footer  mt-100">
+            <div class="container pt-5 ">
+                <div class="row align-items-center border-top pt-5">
+                    <div class="row justify-content-between">
+                        <div class="d-flex col-12 col-md-4 my-3 gap-3 justify-content-center justify-content-md-start">
+                            <div class="footer_icon shadow">
+                                <i class="fa-brands fa-whatsapp fs-5"></i>
+                            </div>
+                            <div class="footer_icon shadow">
+                                <i class="fa-brands fa-viber fs-5"></i>
+                            </div>
+                            <div class="footer_icon shadow">
+                                <i class="fa-solid fa-paper-plane fs-5"></i>
+                            </div>
+
+                        </div>
+                        <div class="d-flex col-12 col-md-4 justify-content-center my-3 align-items-center">
+                              <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}" alt="">
+                                <h2>Cryptency</h2>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <ul class="d-block d-md-flex gap-3 p-0 pt-4">
+                            <li><p>© FL.ru, 2005 – 2022</p></li>
+                            <li><a href="#">О проекте</a></li>
+                            <li><a href="#">О проекте</a></li>
+                            <li><a href="#">О проекте</a></li>
+                            <li><a href="#">О проекте</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="text-center d-block d-md-flex align-items-center justify-content-end gap-4">
+                            <a>Наши партнеры</a><br>
+                            <a href="#" >
+                                <img style="width: 120px;" src="https://preview.colorlib.com/theme/author/images/xpartner-4.png.pagespeed.ic.DaTQYymmyu.webp" alt="">
+                            </a>
+                            <a href="#" >
+                                <img style="width: 120px;" src="https://preview.colorlib.com/theme/author/images/xpartner-3.png.pagespeed.ic.K6b-CsdlC4.webp" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+<script>
+    let get_file = document.querySelector('.get_file')
+let get_file_input = document.querySelector('#get_file_input')
+get_file.addEventListener('click', function(){
+    get_file_input.click()
+});
+function clickInput(){
+    let send_file_btn = document.querySelector('#send_ava')
+    send_file_btn.submit()
+}
+function copyToClipboard() {
+        var copyText = document.getElementById("ref-link").getAttribute('data-link');
+        if (copyText === 'none'){
+            return alert("У вас еще нет реф.ссылки");
+        };
+        navigator.clipboard.writeText(copyText).then(() => {
+            alert("Реф.ссылка скопирована");
+    });
+    }
+
+
+
+
+</script>
+<script>
+         const btns = document.querySelectorAll(".tab-btn");
+
+    const btn_header = document.getElementById('btn_header')
+
+    btn_header.addEventListener('click', () => {
+        left_content.classList.toggle('active')
+    })
+
+
+    const setBtn = document.querySelectorAll(".sett-btn");
+    const articles1 = document.querySelectorAll(".content1");
+    const setting = document.querySelector(".mySettings");
+    let left_content = document.querySelector('.left_content')
+
+    setting.addEventListener("click", function (e) {
+        const id = e.target.dataset.bsTarget
+        if (id) {
+            // // remove selected from other buttons
+            // btns.forEach(function (btn) {
+            // btn.classList.remove("active");
+            // });
+            e.target.classList.add("active");
+            // hide other articles
+            articles1.forEach(function (article) {
+                article.classList.remove("active");
+            });
+
+            const element = document.getElementById(id);
+            element.classList.add("active");
+        }
+    });
+
+</script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

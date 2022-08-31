@@ -1,0 +1,153 @@
+{% extends 'cryptency/base_settings.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div id="changeEmail" class="content1">
+    <div class="row">
+        {% if not user_verify %}
+        <div class="col-12 col-md-6 mt-3 ">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-3 ps-4">
+                        <img class="img-fluid"
+                             src="{% static 'images/settings__confirmation-profile.svg' %}" alt="">
+                    </div>
+                    <div class="col-9 p-0">
+                        <div class="card-body">
+                            <h6 class="card-title fs-14 fw-bold">
+                                Предоставьте все необходимые данные по профилю</h5>
+                                <p class="card-text fs-11">Для полноценного использования
+                                    сервиса?</p>
+                                <a href="{% url 'settings_docs' %}" class="btn btn-outline-warning  px-4"
+                                        data-bs-target="myprofil">Заполнить
+                                </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="col-12 col-md-6">
+                 <div class="card my-3 m-0 m-md-3">
+            <div class="row g-0">
+                <div class="col-md-3 text-start py-4 ps-4 color">
+                    <i class="fa-solid fa-envelope fa-5x"></i>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title fs-14 fw-bold">Email</h5>
+                        <p class="card-text fs-11">В случае Изменения Email на указанный Email мы отправим
+                            <b>код
+                                подтверждения.</b>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-outline-warning" href="#">Изменить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row border p-5 my-3 m-0 m-md-3">
+            <form method="post" class="col-12 col-md-8 col-lg-7">
+                {% csrf_token %}
+                <h1>Пароль</h1>
+                <div class="mb-3">
+                    <label class="form-label text-secondary fs-14">Текущий пароль</label>
+                    <div class="input-group">
+                        <input type="password" name="password1" class="form-control py-2 password1"
+                               placeholder="Password" required>
+                        <span class="input-group-text" id="pass1"><i
+                                class="fa-solid fa-eye"></i></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-secondary fs-14">Новый пароль</label>
+                    <div class="input-group">
+                        <input type="password" name="password2" class="form-control py-2 password2"
+                               placeholder="Password" required>
+                        <span class="input-group-text" id="pass2"><i
+                                class="fa-solid fa-eye"></i></span>
+                    </div>
+                </div>
+                <p class="text-danger mb-4 p-2 bg-light dNone error">Error</p>
+                <div class="mb-3">
+                    <label class="form-label text-secondary fs-14">Повторите пароль</label>
+                    <div class="input-group">
+                        <input type="password" name="password3" class="form-control password3"
+                               placeholder="Password" required>
+                        <span class="input-group-text" id="pass3"><i
+                                class="fa-solid fa-eye"></i></span>
+                    </div>
+                </div>
+                <button class="btn btn-warning px-5">Сохранить</button>
+                {% if status %}
+                <div class="alert alert-{{ status_color }} mt-3" role="alert">
+                    {{ status }}
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+
+<script>
+let input1 = document.querySelector('.password1')
+let input2 = document.querySelector('.password2')
+let input3 = document.querySelector('.password3')
+
+let error = document.querySelector('.error')
+input2.addEventListener('blur', () => {
+    if (input2.value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/)) {
+         console.log(input1.value);
+         console.log('True');
+        error.classList.add('dNone')
+    }
+    else {
+        error.classList.remove('dNone')
+         console.log('Error');
+    }
+});
+
+let btn1 = document.querySelector('#pass1')
+let btn2 = document.querySelector('#pass2')
+let btn3 = document.querySelector('#pass3')
+let arr = [btn1, btn2, btn3]
+arr.forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (input1.type == 'password') {
+            input1.type = 'text'
+            input2.type = 'text'
+            input3.type = 'text'
+            btn1.children[0].classList.add('fa-eye-slash')
+            btn1.children[0].classList.remove('a-eye')
+            btn2.children[0].classList.add('fa-eye-slash')
+            btn2.children[0].classList.remove('a-eye')
+            btn3.children[0].classList.add('fa-eye-slash')
+            btn3.children[0].classList.remove('a-eye')
+        }
+        else {
+            input1.type = 'password'
+            input2.type = 'password'
+            input3.type = 'password'
+            btn1.children[0].classList.remove('fa-eye-slash')
+            btn1.children[0].classList.add('a-eye')
+            btn2.children[0].classList.remove('fa-eye-slash')
+            btn2.children[0].classList.add('a-eye')
+            btn3.children[0].classList.remove('fa-eye-slash')
+            btn3.children[0].classList.add('a-eye')
+        }
+    })
+})
+
+</script>
+{% endblock %}

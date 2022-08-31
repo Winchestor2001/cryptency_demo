@@ -1,0 +1,362 @@
+{% extends 'cryptency/base_settings.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div id="myDocument" class="content1">
+    <div class="row">
+        {% if not user_verify %}
+        <div class="col-12 col-md-6 mt-3 ">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-3 ps-4">
+                        <img class="img-fluid"
+                             src="{% static 'images/settings__confirmation-profile.svg' %}" alt="">
+                    </div>
+                    <div class="col-9 p-0">
+                        <div class="card-body">
+                            <h6 class="card-title fs-14 fw-bold">
+                                Предоставьте все необходимые данные по профилю</h5>
+                                <p class="card-text fs-11">Для полноценного использования
+                                    сервиса?</p>
+                                <a href="{% url 'settings_docs' %}" class="btn btn-outline-warning  px-4"
+                                   data-bs-target="myprofil">Заполнить
+                                </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card my-3 m-0 m-md-3">
+                <div class="row g-0">
+                    <div class="col-md-3 text-start py-4 ps-4 color">
+                        <i class="fa-solid fa-envelope fa-5x"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title fs-14 fw-bold">Email</h5>
+                            <p class="card-text fs-11">В случае Изменения Email на указанный Email мы отправим
+                                <b>код
+                                    подтверждения.</b>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-outline-warning" href="#">Изменить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 col-md-6">
+            <div class="card my-3 m-0 m-md-3">
+                <div class="row g-0">
+                    <div class="col-md-3 text-start py-4 ps-4 color">
+                        <i class="fa-solid fa-envelope fa-5x"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title fs-14 fw-bold">Email</h5>
+                            <p class="card-text fs-11">В случае Изменения Email на указанный Email мы отправим
+                                <b>код
+                                    подтверждения.</b>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-outline-warning" href="#">Изменить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!--    <div class="row border y-3 m-0 m-md-3 p-4">-->
+        <!--        <div class="col-12 col-md-8 col-lg-7">-->
+        <!--            <form action="" class="my-3">-->
+        <!--                <label class="fs-14 text-secondary">Страна деятельности</label>-->
+        <!--                <select name="" class="form-select" id="" required>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                </select>-->
+        <!--            </form>-->
+        <!--        </div>-->
+        <!--        <div class="border-top mt-3 py-3 col-10 ">-->
+        <!--            <button class="btn btn-warning px-5 offset-6 offset-sm-10">Сохранить</button>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--    <div class="row border y-3 m-0 m-md-3 p-4">-->
+        <!--        <div class="col-12 col-md-10">-->
+        <!--            <form action="" class="my-3">-->
+        <!--                <label class="fs-14 text-secondary">Статус в стране деятельности</label>-->
+        <!--                <select name="" class="form-select" id="" required>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                    <option value="1">Lorem, ipsum.</option>-->
+        <!--                </select>-->
+        <!--            </form>-->
+        <!--        </div>-->
+        <!--        <div class="border-top mt-3 py-3 col-10 ">-->
+        <!--            <button class="btn btn-warning px-5 offset-6 offset-sm-10">Сохранить</button>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--    <div class="row border p-0 p-sm-5 my-3 m-0 m-md-3">-->
+        <!--        <div class="d-flex  gap-4">-->
+        <!--            <h5 class="fw-bold">Адрес регистрации в Российской Федерации</h5>-->
+        <!--            <button class="btn btn-light fs-13">Ожидает заполнения</button>-->
+        <!--        </div>-->
+        <!--        <p>Эта информация нужна для последующего вывода денежных средств</p>-->
+        <!--        <form action="">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-12 col-md-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Страна</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12 col-md-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Имя</label>-->
+        <!--                        <select name="" class="form-select" id="" required>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--                <div class="col-12 col-md-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Город / Населенный-->
+        <!--                            пункт</label>-->
+        <!--                        <select name="" class="form-select" id="" required>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12 col-md-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Индекс</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-12 col-lg-6">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Улица</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-6 col-lg-1">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Дом</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-6 col-lg-1">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Корпус</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-7 col-md-6 col-lg-3">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">Тип помещения</label>-->
+        <!--                        <select name="" class="form-select" id="" required>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                            <option value="1">Lorem, ipsum.</option>-->
+        <!--                        </select>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-5 col-md-6 col-lg-1">-->
+        <!--                    <div class="mb-3">-->
+        <!--                        <label class="form-label text-secondary fs-14">№</label>-->
+        <!--                        <input type="text" name="name" class="form-control py-2" required>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="border-top mt-3 py-3 col-12 ">-->
+        <!--                    <button class="btn btn-warning px-5 offset-6 offset-sm-10">Сохранить</button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </form>-->
+        <!--    </div>-->
+        <div class="row border p-0 p-sm-5 my-3 m-0 m-md-3">
+            <div class="d-flex  gap-4">
+                <h5 class="fw-bold">Паспортные данные</h5>
+                <!--            <button class="btn btn-light fs-13">Ожидает заполнения</button>-->
+            </div>
+            <div class="col-12 p-5 m-0 my-3 m-md-3 accordion attention">
+                <h6>Правила фотографирования</h6>
+                <p>Скан-копии или фотографии должны быть цветными, сделанными с оригинала, в хорошем
+                    качестве
+                    (минимум 300 dpi), все детали документов четко видны, при этом не должны содержать
+                    посторонних предметов, объектов или надписей, которых нет на оригинале документа
+                    (например,
+                    скрепок, карандашей, пальцев и т.д.). Максимальный размер ширина*высота: 1000*1000
+                    px,
+                    минимальный размер ширина*высота: 600*600 px.</p>
+            </div>
+            <div class="col-12">
+
+                <form method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="col-md-2">
+                        <label for="validationCustomUsername" class="form-label">Серия</label>
+                        <div class="input-group has-validation">
+                            <input name="seria" type="text" class="form-control" id="validationCustomUsername"
+                                   aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                Напишите серию паспорта.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="validationCustom03" class="form-label">Номер паспорта</label>
+                        <input name="pass_num" type="text" class="form-control" id="validationCustom03" required>
+                        <div class="invalid-feedback">
+                            Напишите номер паспорта.
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="validationCustom04" class="form-label">Дата выдачи</label>
+                        <input name="pass_date_issue" type="date" id="validationCustom04" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Выберите дату выдачи
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="validationCustom05" class="form-label">Код подразделения</label>
+                        <input name="departmen_code" type="text" class="form-control" id="validationCustom05" required>
+                        <div class="invalid-feedback">
+                            Напишите код подразделения.
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="validationCustom06" class="form-label">Место рождения</label>
+                        <input name="place_of_birth" type="text" class="form-control" id="validationCustom06" required>
+                        <div class="invalid-feedback">
+                            Выберите место рождения
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="validationCustom07" class="form-label">Дата рождения</label>
+                        <input name="birthday" type="date" id="validationCustom07" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Выберите дату рождения
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-secondary fs-13">Фото паспорта</p>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="card position-relative text-center my-3 file_get2">
+                                    <img class="file_img2" src="" onerror="hiddenErrorIcon()">
+                                    <div class="card_text">
+                                        <input name="pass_pic1" required class="file_inp2" type="file" onchange="previewFile(event)" hidden><br>
+                                        <h5 class="fw-bold">Отправьте фото паспорта 1</h5>
+                                        <p class="fs-12 text-secondary">Нажмите сюда</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+
+                                <div class="card position-relative text-center my-3 file_get">
+                                    <img class="file_img" src="" onerror="hiddenErrorIcon()">
+                                    <div class="card_text">
+                                        <input name="pass_pic2" required class="file_inp" type="file" onchange="previewFile(event)" hidden><br>
+                                         <h5 class="fw-bold">Отправьте фото паспорта 2</h5>
+                                        <p class="fs-12 text-secondary">Нажмите сюда</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top mt-3 py-3 col-12 ">
+                        <button type="submit" class="btn btn-warning px-5 offset-6 offset-sm-10">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    {% endblock %}
+
+    {% block script %}
+
+    <script>
+    let file_get = document.querySelector('.file_get')
+    let file_get2 = document.querySelector('.file_get2')
+    let filea = document.querySelector('.file_inp');
+    let filea2 = document.querySelector('.file_inp2');
+    const reader = new FileReader();
+
+    function hiddenErrorIcon(){
+        let preview = document.querySelector('.file_img');
+        let preview2 = document.querySelector('.file_img2');
+        preview.style.display = 'none'
+        preview2.style.display = 'none'
+    }
+
+
+    file_get.addEventListener('click', ()=>{
+        filea.click()
+    });
+    file_get2.addEventListener('click', ()=>{
+        filea2.click()
+    });
+
+    function previewFile(event) {
+            console.log(event.path[2].children[0]);
+            let preview = event.path[2].children[0]
+            let file = event.path[0].files[0]
+            let reader = new FileReader();
+            reader.onloadend = function () {
+                preview.style.display = 'block'
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = ""
+            }
+            preview.style.display = 'none'
+          }
+
+
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+        // console.log(forms);
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+
+    </script>
+
+
+    {% endblock %}

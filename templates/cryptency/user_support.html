@@ -1,0 +1,30 @@
+{% extends 'cryptency/base_panel.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<section class="support content right-content" id="support">
+            <div class="container">
+                <div class="header_content mb-100">
+                    <h1 class="display-6 fw-bold border-bottom py-2">Помощь</h1>
+                    <div class="row">
+                        <h6>Уважаемые Партнеры!</h6>
+                        <p>Теперь с вопросами о работе в личном кабинете вы можете обращаться в нашу Службу Техподдержки
+                            через
+                            форму обратной связи, расположенную в правом нижнем углу страницы.</p>
+                        <div>
+                            <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+                                 alt="">
+                        </div>
+                        <p>Отправляя сообщение, пожалуйста, указывайте email и номер телефона, привязанные к своему
+                            аккаунту.</p>
+                        <p><b>Время работы Службы Техподдержки</b>: пн. – пт. С 9.00 до 18.00.</p>
+                        <p>Мы вам поможем!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

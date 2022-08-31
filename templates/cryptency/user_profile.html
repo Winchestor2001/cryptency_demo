@@ -1,0 +1,114 @@
+{% extends 'cryptency/base_panel.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<section class="usd content active right-content" id="myOfficde">
+    <div class="container">
+        <div class="header_content mb-100">
+            <h1 class="display-6 fw-bold">Мой кабинет</h1>
+            <p>Здесь ты можешь оформить заявку на вывод средств</p>
+        </div>
+        <div class="row border pt-4 ps-4 my-3 m-0 m-md-3">
+            <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-3">
+                <p class="fs-13">Доступно к выводу</p>
+                <h3 class="fw-bold"><span>{{user_balance}}</span> <span>USD</span></h3>
+                <button class="btn btn-secondary px-4 mb-4">Вывести</button>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4  ps-4 mt-lg-0 mt-3">
+                <p class="fs-13">Ожидает начисления</p>
+                <h3 class="fw-bold"><span>0</span> <span>USD</span></h3>
+
+
+            </div>
+            <div class="col-12 col-sm-12 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-5">
+                <p class="fs-13">Доступно к выводу</p>
+                <h3 class="fw-bold"><span>{{user_balance}}</span> <span>USD</span></h3>
+
+            </div>
+        </div>
+        <ul class="row p-4 p-sm-5 m-0 my-3 m-md-3 attention">
+            <h6>Внимание!</h6>
+            <li>Минимальная сумма вывода 20</li>
+            {% if not user_verify %}
+            <li>У Вас не пройдена <a href="#">верификация</a></li>
+            {% endif %}
+            <li>Вы не можете вывести средства, т.к. у Вас нет <a href="#">купленных пакетов</a></li>
+
+        </ul>
+        <div class="row p-0 p-lg-3">
+            <div class="col-12">
+                <div class="row bg-light">
+                    <div class="col-12 col-md-6 p-0">
+                        <div class="border mx-0 card p-4">
+                            <p>Базовый уровень</p>
+                            <h4 class="fw-bold">0 Level</h4>
+                            <center>
+                                <div
+                                        role="progressbar"
+                                        aria-valuenow="{{ user_balance }}"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                        style="--value: {{ user_balance }}"
+                                ></div>
+                            </center>
+                            <div class="text-center border-bottom mt-3">
+                                <h5>Групповой оборот</h5>
+                                <p>Цель: <b>0 USD</b></p>
+                            </div>
+                            <div class="mt-3">
+                                <p class="mt-2"><b class="fs-13">Условия перехода на следующий уровень:</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 p-5">
+                        <ul>
+                            <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-0 p-sm-3 pt-2 ">
+            <div class="col-12 col-md-6">
+                <div class="align-items-center border d-flex p-3">
+                    <div class="border-end p-3">
+                        <p class="fs-13 m-0">Прогнозируемый оборот</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                    </div>
+                    <div class="p-3">
+                        <p class="fs-13 m-0">Факт на</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                        <p class="fs-13 m-0">Факт на сегодня</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 pt-4 pt-sm-0">
+                <div class="align-items-center border d-flex p-3">
+                    <div class="border-end p-3">
+                        <p class="fs-13 m-0">Прогнозируемый оборот</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                    </div>
+                    <div class="p-3">
+                        <p class="fs-13 m-0">Остаток за месяц</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                        <p class="fs-13 m-0">План на сегодня</p>
+                        <h5 class="fw-bold">0 USD</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

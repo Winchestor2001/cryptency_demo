@@ -1,0 +1,85 @@
+{% extends 'cryptency/base_settings.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div id="myprofil" class="content1 active container-fluid">
+    <div class="row">
+        {% if not user_verify %}
+        <div class="col-12 col-md-6 mt-3 ">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-3 ps-4">
+                        <img class="img-fluid"
+                             src="{% static 'images/settings__confirmation-profile.svg' %}" alt="">
+                    </div>
+                    <div class="col-9 p-0">
+                        <div class="card-body">
+                            <h6 class="card-title fs-14 fw-bold">
+                                Предоставьте все необходимые данные по профилю</h5>
+                                <p class="card-text fs-11">Для полноценного использования
+                                    сервиса?</p>
+                                <a href="{% url 'settings_docs' %}" class="btn btn-outline-warning  px-4"
+                                   data-bs-target="myprofil">Заполнить
+                                </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="col-12 col-md-6">
+            <div class="card my-3 m-0 m-md-3">
+                <div class="row g-0">
+                    <div class="col-md-3 text-start py-4 ps-4 color">
+                        <i class="fa-solid fa-envelope fa-5x"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title fs-14 fw-bold">Email</h5>
+                            <p class="card-text fs-11">В случае Изменения Email на указанный Email мы отправим
+                                <b>код
+                                    подтверждения.</b>
+                            </p>
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-outline-warning" href="#">Изменить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border m-1 my-4 p-4">
+            <div class="col-12 col-md-8 col-lg-7">
+
+                <h5 class="fw-bold">Личная информация</h5>
+
+                <form action="" class="my-3">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fs-14">Имя</label>
+                        <input value="{{user_name}}" type="text" name="name" class="form-control py-2" required>
+                    </div>
+                    <!--                <div class="mb-3">-->
+                    <!--                    <label class="form-label text-secondary fs-14">Отчество</label>-->
+                    <!--                    <input value="{{user_name}}" type="text" name="sharif" class="form-control py-2" required>-->
+                    <!--                </div>-->
+                    <div class="mb-3">
+                        <label class="form-label text-secondary fs-14">Фамилия</label>
+                        <input value="{{user_surname}}" type="text" name="lastName" class="form-control py-2" required>
+                    </div>
+                    <div class="mb-3">
+                        <labe class="form-label text-secondary fs-14">Дата рождения</labe>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <button class="btn btn-warning px-5">Сохранить</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
