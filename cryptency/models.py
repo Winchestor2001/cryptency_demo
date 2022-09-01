@@ -9,7 +9,7 @@ class UsersProfile(models.Model):
     user_country = models.CharField(max_length=150, verbose_name='Страна')
     user_email = models.CharField(max_length=50, unique=True, verbose_name='E-mail')
     user_password = models.CharField(max_length=50, verbose_name='Пароль')
-    user_photo = models.ImageField(upload_to='users_avatar/', null=True, verbose_name='Аватарка')
+    user_photo = models.ImageField(upload_to='users_avatar/', blank=True, null=True, verbose_name='Аватарка')
     user_referals = models.IntegerField(default=0, verbose_name='Рефералы')
     user_referals_link = models.CharField(max_length=200, null=True, default='none', verbose_name='Реферальная ссылка')
     user_balance = models.BigIntegerField(default=0, verbose_name='Баланс')

@@ -15,7 +15,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import UsersProfile, UsersEmailVerifyTokens, Services, UserSecureData, UsersPayChecks, Videos, AdminConfigs
 
-site_domen_link = 'http://127.0.0.1:8000/'
+# site_domen_link = 'http://127.0.0.1:8000'
+site_domen_link = 'http://cryptency.pythonanywhere.com'
 
 
 def save_avatar(request, user_email):
@@ -34,11 +35,14 @@ def save_avatar(request, user_email):
 
 @login_required(login_url='user_login')
 def home_page(request):
-    services = Services.objects.all()
-    return render(request, 'cryptency/user_profile.html', context={'services': services})
+    if not request.user.is_staff:
+        services = Services.objects.all()
+        return render(request, 'cryptency/user_profile.html', context={'services': services})
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
-def user_reg(request):
+def user_reg(request, ref_link=None):
     context = {}
     if request.method == 'POST':
         name = request.POST['name']
@@ -58,11 +62,16 @@ def user_reg(request):
         usr.save()
         token = secrets.token_hex(12)
         if is_ref:
+            ref_user = UsersProfile.objects.get(user_email=is_ref)
+            configs = AdminConfigs.objects.all().values()
+            ref_user.user_referals += 1
+            ref_user.user_referals_bonus += configs[0]['ref_bonus1']
+            ref_user.save()
             reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
-                               user_country=country, user_referal_email1=is_ref)
+                               user_country=country, user_referal_email1=is_ref, user_referals_link=f'{site_domen_link}/user_referal/{token}')
         else:
             reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
-                               user_country=country)
+                               user_country=country, user_referals_link=f'{site_domen_link}/user_referal/{token}')
         UsersEmailVerifyTokens(user_email=email, user_token=token).save()
         reg.sert_id = "%05i" % (usr.id,)
         reg.save()
@@ -76,6 +85,9 @@ def user_reg(request):
                   fail_silently=True)
         return render(request, 'cryptency/signup.html', context=context)
 
+    if not ref_link is None:
+        ref_user = UsersProfile.objects.get(user_referals_link=f"{site_domen_link}/user_referal/{ref_link}")
+        context['is_ref'] = ref_user.user_email
     return render(request, 'cryptency/signup.html', context=context)
 
 
@@ -95,7 +107,8 @@ def user_login(request):
                     context['status'] = 'Почта или пароль не правельный'
             else:
                 context['status'] = 'Ваша почта не подтверждена'
-        except:
+        except Exception as ex:
+            print(ex)
             context['status'] = 'Это почта не зарегистрирована'
     return render(request, 'cryptency/signin.html', context=context)
 
@@ -144,7 +157,6 @@ def user_logout(request):
 def user_profile(request):
     user = UsersProfile.objects.get(user_email=request.user.email)
     check_pay = UsersPayChecks.objects.filter(user_email=request.user.email)
-    token = secrets.token_hex(15)
     purchase_status = 0
     if len(check_pay) != 0:
         for cp in check_pay:
@@ -239,6 +251,7 @@ def user_profile_contacts(request):
 def user_profile_videos(request):
     user = UsersProfile.objects.get(user_email=request.user)
     token = secrets.token_hex(15)
+    configs = AdminConfigs.objects.all()
     data = {
         'user_email': user.user_email,
         'user_photo': user.user_photo,
@@ -265,7 +278,10 @@ def user_profile_videos(request):
             data['user_videos'] = user_videos_data
             save_ref_link = UsersProfile.objects.get(user_email=request.user.email)
             if user.user_referals_link == 'none':
-                save_ref_link.user_referals_link = f'{site_domen_link}/user_referal/{token}'
+                save_ref_link.user_referal_email1 = configs.ref_bonus1
+                insert_balance = UsersProfile.objects.get(user_email=save_ref_link.user_referal_email1)
+                insert_balance.user_balance = configs.ref_bonus1
+                insert_balance.user_referals_bonus = configs.ref_bonus1
                 save_ref_link.save()
                 return redirect('profile_videos')
         else:
@@ -467,19 +483,20 @@ def buy_service(request, pk):
 
 def check_user_referal(request, ref_link):
     try:
-        user = UsersProfile.objects.get(user_referals_link=ref_link)
+        user = UsersProfile.objects.get(user_referals_link=f"{site_domen_link}/user_referal/{ref_link}")
         if user:
             user.user_referals += 1
-            # if user.user_referal_email1:
-            #     pass
-            # elif user.user_referal_email2:
-            #     pass
-            # elif user.user_referal_email3:
-            #     pass
-            return render(request, 'cryptency/signup.html', context={'is_ref': user.user_email})
+            email = user.user_email
+            user.save()
+            return render(request, 'cryptency/signup.html', context={'is_ref': email})
 
-    except:
+    except Exception as ex:
+        print(ex)
         return redirect('user_reg')
+
+    if request.method == 'POST':
+        return redirect('user_reg')
+
 
 
 def email_verify(request, user_token):
