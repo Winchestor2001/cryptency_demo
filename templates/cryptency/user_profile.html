@@ -14,7 +14,7 @@
             <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-3">
                 <p class="fs-13">Доступно к выводу</p>
                 <h3 class="fw-bold"><span>{{user_balance}}</span> <span>USD</span></h3>
-                <button class="btn btn-secondary px-4 mb-4">Вывести</button>
+                <button class="btn btn-success px-4 mb-4">Вывести</button>
             </div>
             <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4  ps-4 mt-lg-0 mt-3">
                 <p class="fs-13">Ожидает начисления</p>
@@ -34,7 +34,9 @@
             {% if not user_verify %}
             <li>У Вас не пройдена <a href="#">верификация</a></li>
             {% endif %}
+            {% if not purchase_status %}
             <li>Вы не можете вывести средства, т.к. у Вас нет <a href="#">купленных пакетов</a></li>
+            {% endif %}
 
         </ul>
         <div class="row p-0 p-lg-3">
@@ -64,15 +66,9 @@
                     </div>
                     <div class="col-12 col-md-6 p-5">
                         <ul>
-                            <h5>Lorem ipsum dolor sit amet consectetur.</h5>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
-                            <li>Lorem ipsum dolor sit amet.</li>
+                            <h5>Информация о рефералах</h5>
+                            <li>Приглашенные рефералы: 0</li>
+                            <li>Заработано от рефералов: 0$</li>
                         </ul>
                     </div>
                 </div>

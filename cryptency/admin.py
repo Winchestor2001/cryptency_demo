@@ -19,10 +19,14 @@ class AdminConfigsAdmin(admin.ModelAdmin):
     list_display = ('ref_bonus1', 'ref_bonus2', 'ref_bonus3', 'withdraw_sum', 'card_number')
 
 
+class VideosAdmin(admin.ModelAdmin):
+    list_display = ('video_title', 'service_pk')
+
+
 admin.site.register(UsersProfile, UsersProfileAdmin)
 admin.site.register(UsersEmailVerifyTokens)
 admin.site.register(UserSecureData)
 admin.site.register(Services, ServicesAdmin)
 admin.site.register(UsersPayChecks, UsersPayChecksAdmin)
-admin.site.register(Videos)
+admin.site.register(Videos, VideosAdmin)
 admin.site.register(AdminConfigs, AdminConfigsAdmin)

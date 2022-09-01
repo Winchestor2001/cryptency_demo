@@ -40,6 +40,13 @@
             </div>
         </div>
         {% endif %}
+        {% if not services %}
+        <center>
+            <div class="alert alert-danger text-center w-50" role="alert">
+            В базе нет услуг
+        </div>
+        </center>
+        {% else %}
         {% for service in services %}
         <div class="row bg-light mt-4">
             <div class="col-12 col-md-4 p-md-0">
@@ -73,13 +80,15 @@
             </div>
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </section>
 
 {% endblock %}
 
 {% block script %}
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 <script>
 
     function selectSimbole() {
@@ -110,6 +119,7 @@
             }
         });
     }
+
 
 </script>
 

@@ -11,11 +11,14 @@
         </div>
         <div class="row videos_section mb-100">
             {% if status %}
-            <div class="alert alert-danger w-50 text-center" role="alert">
+            <center>
+                <div class="alert alert-danger w-50 text-center" role="alert">
                 {{ status }}
             </div>
+            </center>
             {% else %}
-            {% for video in user_videos %}
+            {% for v in user_videos %}
+            {% for video in v %}
             <div class="col-12 col-md-6 g-4">
                 <div class="card">
                     <div class="video_card card">
@@ -34,6 +37,7 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
             {% endfor %}
             {% endif %}
         </div>

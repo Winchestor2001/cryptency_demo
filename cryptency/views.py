@@ -58,9 +58,11 @@ def user_reg(request):
         usr.save()
         token = secrets.token_hex(12)
         if is_ref:
-            reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd, user_country=country, user_referal_email1=is_ref)
+            reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
+                               user_country=country, user_referal_email1=is_ref)
         else:
-            reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd, user_country=country)
+            reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
+                               user_country=country)
         UsersEmailVerifyTokens(user_email=email, user_token=token).save()
         reg.sert_id = "%05i" % (usr.id,)
         reg.save()
@@ -140,23 +142,30 @@ def user_logout(request):
 
 @login_required
 def user_profile(request):
-    user = UsersProfile.objects.all().values()
+    user = UsersProfile.objects.get(user_email=request.user.email)
+    check_pay = UsersPayChecks.objects.filter(user_email=request.user.email)
     token = secrets.token_hex(15)
+    purchase_status = 0
+    if len(check_pay) != 0:
+        for cp in check_pay:
+            if cp.paid:
+                purchase_status += 1
     data = {
-        'user_email': user[0]['user_email'],
-        'user_referals_bonus': user[0]['user_referals_bonus'],
-        'user_photo': user[0]['user_photo'],
-        'user_name': user[0]['user_name'],
-        'user_surname': user[0]['user_surname'],
-        'user_balance': user[0]['user_balance'],
-        'user_referals': user[0]['user_referals'],
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user[0]['user_referals_link'] != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user[0]['user_verify'] else None,
-        'user_reg_date': user[0]['user_reg_date'],
-        'cach_id': int(random.randint(99, 9999)),
+        'user_email': user.user_email,
+        'user_referals_bonus': user.user_referals_bonus,
+        'user_photo': user.user_photo,
+        'user_name': user.user_name,
+        'user_surname': user.user_surname,
+        'user_balance': user.user_balance,
+        'user_referals': user.user_referals,
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
+        'user_verify': True if user.user_verify else False,
+        'user_reg_date': user.user_reg_date,
+        'purchase_status': True if purchase_status != 0 else False
     }
     if request.method == 'POST':
         save_avatar(request, request.user.email)
+        return redirect('profile')
     return render(request, 'cryptency/user_profile.html', context=data)
 
 
@@ -172,10 +181,10 @@ def user_profile_accrual(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         save_avatar(request, request.user.email)
@@ -194,10 +203,10 @@ def user_profile_withdraws(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         save_avatar(request, user.user_email)
@@ -216,10 +225,10 @@ def user_profile_contacts(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         save_avatar(request, user.user_email)
@@ -236,22 +245,34 @@ def user_profile_videos(request):
         'user_name': user.user_name,
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
-        'cach_id': int(random.randint(99, 9999)),
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
+
     }
     if request.method == 'POST':
         save_avatar(request, user.user_email)
     try:
-        user2 = UsersPayChecks.objects.get(user_email=request.user.email)
-        user_videos = Videos.objects.filter(service_pk=user2.service_pk)
-        if user_videos and user2.paid:
-            data['user_videos'] = user_videos
+        service_pks = []
+        user_videos_data = []
+        user2 = UsersPayChecks.objects.filter(user_email=request.user.email)
+        if len(user2) != 0:
+            for pks in user2:
+                service_pks.append(pks.service_pk)
+        for i in service_pks:
+            user_videos = Videos.objects.filter(service_pk=i)
+            if len(user_videos) != 0:
+                user_videos_data.append(user_videos)
+        if len(user_videos_data) != 0:
+            data['user_videos'] = user_videos_data
+            save_ref_link = UsersProfile.objects.get(user_email=request.user.email)
+            if user.user_referals_link == 'none':
+                save_ref_link.user_referals_link = f'{site_domen_link}/user_referal/{token}'
+                save_ref_link.save()
+                return redirect('profile_videos')
         else:
             data['status'] = 'Упс, нет видео роликов'
     except Exception as ex:
         print(ex)
         data['status'] = 'Упс, нет видео роликов'
-
 
     return render(request, 'cryptency/user_videos.html', context=data)
 
@@ -268,10 +289,10 @@ def user_profile_settings(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': user.user_verify,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         save_avatar(request, request.user.email)
@@ -290,10 +311,10 @@ def user_profile_support(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         save_avatar(request, user.user_email)
@@ -306,23 +327,26 @@ def user_profile_purchase(request):
     token = secrets.token_hex(15)
     services = Services.objects.all()
     wait_pay_check = UsersPayChecks.objects.filter(user_email=request.user.email).values()
+    pay_status = 0
+    if len(wait_pay_check) != 0:
+        for wpc in wait_pay_check:
+            if not wpc['paid']:
+                pay_status += 1
 
     data = {
         'user_photo': user.user_photo,
         'user_name': user.user_name,
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
-        'services': services,
-        'cach_id': int(random.randint(99, 9999)),
-        'pay_status': wait_pay_check,
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
+        'services': services if len(services) != 0 else False,
+        'pay_status': True if pay_status == 0 else False,
     }
     if request.method == 'GET' and 'simbole' in request.GET:
         if request.GET['simbole'] == 'usd':
             return HttpResponse('usd')
         else:
             return HttpResponse('byn')
-
 
     if request.method == 'POST':
         save_avatar(request, user.user_email)
@@ -341,10 +365,10 @@ def settings_secure(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
 
     if request.method == 'POST':
@@ -360,8 +384,10 @@ def settings_secure(request):
                 user2.set_password(pass2)
                 user.save()
                 user2.save()
-                return render(request, 'cryptency/settings_secure.html', context={'status': 'Пароль сохранен', 'status_color': 'success'})
-            return render(request, 'cryptency/settings_secure.html', context={'status': 'Пароль не совпадает', 'status_color': 'warning'})
+                return render(request, 'cryptency/settings_secure.html',
+                              context={'status': 'Пароль сохранен', 'status_color': 'success'})
+            return render(request, 'cryptency/settings_secure.html',
+                          context={'status': 'Пароль не совпадает', 'status_color': 'warning'})
         except Exception as ex:
             print(ex)
             redirect('/')
@@ -380,10 +406,10 @@ def settings_document(request):
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
-        'ref_link': f'{site_domen_link}/user_referal/{token}' if user.user_referals_link != 'none' else 'none',
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'user_verify': 'Верифицирован' if user.user_verify else None,
         'user_reg_date': user.user_reg_date,
-        'cach_id': int(random.randint(99, 9999)),
+
     }
     if request.method == 'POST':
         if 'avatar' in request.FILES:
@@ -431,7 +457,8 @@ def buy_service(request, pk):
                 for chunk in file_obj.chunks():
                     d.write(chunk)
 
-            user = UsersPayChecks(service_pk=pk, user_pay_check=filename, user_email=request.user.email, service_name=services.service_name)
+            user = UsersPayChecks(service_pk=pk, user_pay_check=filename, user_email=request.user.email,
+                                  service_name=services.service_name)
             user.save()
             return redirect('profile')
 

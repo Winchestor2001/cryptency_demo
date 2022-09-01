@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -11,13 +13,27 @@
           integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--page style-->
-    <link rel="stylesheet" href="{% static 'css/user.css' %}?version={{ cach_id }}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
     <title>Cryptency - Профиль</title>
 </head>
 <body>
 <div id="preloader">
     <div id="loader"></div>
 </div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="margin-top: 70px;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-secondary text-dark">
+            <img src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}" class="rounded me-2" alt="..."
+                 style="width: 30px;">
+            <strong class="me-auto">Cryptency</strong>
+        </div>
+        <div class="toast-body ">
+
+        </div>
+    </div>
+</div>
+
 
 <section class="container-fluid about p-0">
     <section class="header rgb pb-100 mb-5">
@@ -88,11 +104,15 @@
             <a href="{% url 'user_purchase' %}" class="btn btn-warning fs-13 my-3 w-100" data-id="purchase">Оформить
                 покупку</a>
             <br>
-            <div style="cursor: pointer;" class="d-flex justify-content-between mt-2  pe-3"
-                 onclick="copyToClipboard()"
-                 id="ref-link" data-link="{{ ref_link }}">
+            <div style="cursor: pointer;" class="d-flex justify-content-between mt-2 pe-3 ref-link" id="liveToastBtn"
+                 data-link="{{ ref_link }}">
                 <span class="fs-13 grey">Скопировать промокод</span><i class="fa-solid fa-link"></i>
             </div>
+            <!--            <div style="cursor: pointer;"  class="d-flex justify-content-between mt-2  pe-3"-->
+            <!--                 onclick="copyToClipboard()"-->
+            <!--                 id="ref-link" data-link="{{ ref_link }}">-->
+            <!--                <span class="fs-13 grey">Скопировать промокод</span><i class="fa-solid fa-link"></i>-->
+            <!--            </div>-->
 
 
             <ul class="userMenu ">
@@ -151,49 +171,54 @@
     </div>
 
     <section class="footer  mt-100">
-            <div class="container pt-5 ">
-                <div class="row align-items-center border-top pt-5">
-                    <div class="row justify-content-between">
-                        <div class="d-flex col-12 col-md-4 my-3 gap-3 justify-content-center justify-content-md-start">
-                            <div class="footer_icon shadow">
-                                <i class="fa-brands fa-whatsapp fs-5"></i>
-                            </div>
-                            <div class="footer_icon shadow">
-                                <i class="fa-brands fa-viber fs-5"></i>
-                            </div>
-                            <div class="footer_icon shadow">
-                                <i class="fa-solid fa-paper-plane fs-5"></i>
-                            </div>
+        <div class="container pt-5 ">
+            <div class="row align-items-center border-top pt-5">
+                <div class="row justify-content-between">
+                    <div class="d-flex col-12 col-md-4 my-3 gap-3 justify-content-center justify-content-md-start">
+                        <div class="footer_icon shadow">
+                            <i class="fa-brands fa-whatsapp fs-5"></i>
+                        </div>
+                        <div class="footer_icon shadow">
+                            <i class="fa-brands fa-viber fs-5"></i>
+                        </div>
+                        <div class="footer_icon shadow">
+                            <i class="fa-solid fa-paper-plane fs-5"></i>
+                        </div>
 
-                        </div>
-                        <div class="d-flex col-12 col-md-4 justify-content-center my-3 align-items-center">
-                              <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}" alt="">
-                                <h2>Cryptency</h2>
-                        </div>
                     </div>
-                    <div class="col-12 col-lg-8">
-                        <ul class="d-block d-md-flex gap-3 p-0 pt-4">
-                            <li><p>© FL.ru, 2005 – 2022</p></li>
-                            <li><a href="#">О проекте</a></li>
-                            <li><a href="#">О проекте</a></li>
-                            <li><a href="#">О проекте</a></li>
-                            <li><a href="#">О проекте</a></li>
-                        </ul>
+                    <div class="d-flex col-12 col-md-4 justify-content-center my-3 align-items-center">
+                        <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+                             alt="">
+                        <h2>Cryptency</h2>
                     </div>
-                    <div class="col-12 col-lg-4">
-                        <div class="text-center d-block d-md-flex align-items-center justify-content-end gap-4">
-                            <a>Наши партнеры</a><br>
-                            <a href="#" >
-                                <img style="width: 120px;" src="https://preview.colorlib.com/theme/author/images/xpartner-4.png.pagespeed.ic.DaTQYymmyu.webp" alt="">
-                            </a>
-                            <a href="#" >
-                                <img style="width: 120px;" src="https://preview.colorlib.com/theme/author/images/xpartner-3.png.pagespeed.ic.K6b-CsdlC4.webp" alt="">
-                            </a>
-                        </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <ul class="d-block d-md-flex gap-3 p-0 pt-4">
+                        <li><p>© FL.ru, 2005 – 2022</p></li>
+                        <li><a href="#">О проекте</a></li>
+                        <li><a href="#">О проекте</a></li>
+                        <li><a href="#">О проекте</a></li>
+                        <li><a href="#">О проекте</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="text-center d-block d-md-flex align-items-center justify-content-end gap-4">
+                        <a>Наши партнеры</a><br>
+                        <a href="#">
+                            <img style="width: 120px;"
+                                 src="https://preview.colorlib.com/theme/author/images/xpartner-4.png.pagespeed.ic.DaTQYymmyu.webp"
+                                 alt="">
+                        </a>
+                        <a href="#">
+                            <img style="width: 120px;"
+                                 src="https://preview.colorlib.com/theme/author/images/xpartner-3.png.pagespeed.ic.K6b-CsdlC4.webp"
+                                 alt="">
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
@@ -209,22 +234,29 @@ function clickInput(){
     let send_file_btn = document.querySelector('#send_ava')
     send_file_btn.submit()
 }
-function copyToClipboard() {
-        var copyText = document.getElementById("ref-link").getAttribute('data-link');
-        if (copyText === 'none'){
-            return alert("У вас еще нет реф.ссылки");
-        };
-        navigator.clipboard.writeText(copyText).then(() => {
-            alert("Реф.ссылка скопирована");
-    });
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+const copyText = toastTrigger.getAttribute('data-link')
+const toastbody = document.querySelector('.toast-body')
+if (toastTrigger) {
+  toastTrigger.addEventListener('click', () => {
+    if (copyText == 'none'){
+        console.log(toastbody)
+        toastbody.innerHTML = "У вас еще нет реф.ссылки"
     }
+    else{
+        console.log(toastbody)
+        navigator.clipboard.writeText(copyText).then(() => {
+           toastbody.innerHTML = "Реф.ссылка скопирована"
+        })
+    }
+    const toast = new bootstrap.Toast(toastLiveExample)
 
+    toast.show()
+  })
+}
 
-
-
-</script>
-<script>
-         const btns = document.querySelectorAll(".tab-btn");
+const btns = document.querySelectorAll(".tab-btn");
 
     const btn_header = document.getElementById('btn_header')
 
@@ -256,7 +288,22 @@ function copyToClipboard() {
         }
     });
 
+<!--function copyToClipboard() {-->
+<!--        var copyText = document.getElementById("ref-link").getAttribute('data-link');-->
+<!--        if (copyText === 'none'){-->
+<!--            return alert("У вас еще нет реф.ссылки");-->
+<!--        };-->
+<!--        navigator.clipboard.writeText(copyText).then(() => {-->
+<!--            alert("Реф.ссылка скопирована");-->
+<!--    });-->
+<!--    }-->
+
+
+
+
+
 </script>
+
 {% block script %}
 {% endblock %}
 </body>
