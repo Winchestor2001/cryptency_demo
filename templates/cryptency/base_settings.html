@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- Bootstrap link-->
+    <link rel="stylesheet" href="{% static 'asserts/bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
     <!-- Fontawesome link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{% static 'asserts/fontawesome-free-6.2.0-web/css/all.css' %}">
     <!--page style-->
     <link rel="stylesheet" href="{% static 'css/user.css' %}">
     <title>Cryptency - Профиль</title>
@@ -19,6 +17,19 @@
 <body>
 <div id="preloader">
     <div id="loader"></div>
+</div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="margin-top: 70px;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-secondary text-dark">
+            <img src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}" class="rounded me-2" alt="..."
+                 style="width: 30px;">
+            <strong class="me-auto text-white">Cryptency</strong>
+        </div>
+        <div class="toast-body ">
+
+        </div>
+    </div>
 </div>
 
 <section class="container-fluid about p-0">
@@ -46,7 +57,7 @@
                                     href="{% url 'profile_contacts' %}">Контакты</a></li>
                         </ul>
                         <div class="d-flex align-items-center gap-3">
-                            <div class="fw-bold fs-13">{{ user_balance }} USD</div>
+                            <div class="fw-bold fs-15 text-success">{{ user_balance }} USD</div>
                             <div class="menue_img">
                                 {% if user_photo %}
                                 <img class="circle-img"
@@ -86,14 +97,16 @@
                     </div>
                 </div>
             </div>
-            <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }}</h6>
-            <a href="{% url 'user_purchase' %}" class="btn btn-warning fs-13 my-3 w-100" data-id="purchase">Оформить
-                покупку</a>
+            {% if user_verify %}
+            <h6 class="my-3 text-center text-lg-start h5">{{ user_surname }} {{ user_name }} <i style="color: #66C462; font-size: 20px;" class="shadow ms-2 fa-solid fa-user-shield"></i></h6>
+            {% else %}
+            <h6 class="my-3 text-center text-lg-start h5">{{ user_surname }} {{ user_name }} <i style="color: #DC3545; font-size: 20px;" class="shadow ms-2 fa-solid fa-user-shield"></i></h6>
+            {% endif %}
+            <a href="{% url 'user_purchase' %}" class="btn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
             <br>
-            <div style="cursor: pointer;" class="d-flex justify-content-between mt-2  pe-3"
-                 onclick="copyToClipboard()"
-                 id="ref-link" data-link="{{ ref_link }}">
-                <span class="fs-13 grey">Скопировать промокод</span><i class="fa-solid fa-link"></i>
+            <div style="cursor: pointer;" class="d-flex justify-content-between mt-2 pe-3 ref-link" id="liveToastBtn"
+                 data-link="{{ ref_link }}">
+                <span class="fs-14 grey">Скопировать реф.ссылку</span><i class="fa-solid fa-link"></i>
             </div>
 
 
@@ -122,7 +135,7 @@
 
                 <div class="my-3 border-top border-bottom text-secondary">
                     <li data-id="event_video">
-                        <i class="fa-solid fa-star me-2"></i>
+                        <i class="fa-solid fa-video me-2"></i>
                         <a style="color:#808080; text-decoration:none;"
                            href="{% url 'profile_videos' %}">Видео-ролики</a>
                     </li>
@@ -149,7 +162,7 @@
         <section class="mySettings content right-content" id="mySettings">
             <div class="container">
                 <div class="header_content mb-100">
-                    <h1 class="display-6 fw-bold">Мои настройки</h1>
+                    <h2 class=" fw-bold mt-4">Мои настройки</h2>
                     <p>Здесь ты можешь изменить настройки учетной записи и сменить пароль.
                         Пожалуйста, <br> свяжись с нами , если у тебя есть вопросы.</p>
                 </div>
@@ -220,68 +233,11 @@
     </section>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
-<!--<script src="{% static 'js/userpanel.js' %}"></script>-->
-<script>
-
-    let get_file = document.querySelector('.get_file')
-let get_file_input = document.querySelector('#get_file_input')
-get_file.addEventListener('click', function(){
-    get_file_input.click()
-});
-function clickInput(){
-    let send_file_btn = document.querySelector('#send_ava')
-    send_file_btn.submit()
-}
-function copyToClipboard() {
-        var copyText = document.getElementById("ref-link").getAttribute('data-link');
-        if (copyText === 'none'){
-            return alert("У вас еще нет реф.ссылки");
-        };
-        navigator.clipboard.writeText(copyText).then(() => {
-            alert("Реф.ссылка скопирована");
-    });
-    }
-
-     const btns = document.querySelectorAll(".tab-btn");
-
-    const btn_header = document.getElementById('btn_header')
-
-    btn_header.addEventListener('click', () => {
-        left_content.classList.toggle('active')
-    })
-
-
-    const setBtn = document.querySelectorAll(".sett-btn");
-    const articles1 = document.querySelectorAll(".content1");
-    const setting = document.querySelector(".mySettings");
-    let left_content = document.querySelector('.left_content')
-
-    setting.addEventListener("click", function (e) {
-        const id = e.target.dataset.bsTarget
-        if (id) {
-            // // remove selected from other buttons
-            // btns.forEach(function (btn) {
-            // btn.classList.remove("active");
-            // });
-            e.target.classList.add("active");
-            // hide other articles
-            articles1.forEach(function (article) {
-                article.classList.remove("active");
-            });
-
-            const element = document.getElementById(id);
-            element.classList.add("active");
-        }
-    });
-
-
-
-</script>
-
+<!--Bootstrap Js-->
+<script src="{% static 'asserts/bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'asserts/jquery/jqury.min.js' %}"></script>
 {% block script %}
 {% endblock %}
+<script src="{% static 'js/menu.js' %}"></script>
 </body>
 </html>

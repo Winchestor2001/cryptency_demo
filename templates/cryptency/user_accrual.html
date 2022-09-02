@@ -2,88 +2,94 @@
 {% load static %}
 
 
-
 {% block content %}
 <section class="myAccount content right-content" id="myAccount">
-            <div class="container">
-                <div class="header_content mb-100">
-                    <h1 class="display-6 fw-bold">Мои начисления</h1>
-                    <p>Здесь ты можешь оформить заявку на вывод средств</p>
-                </div>
-                <div class="row border pt-4 ps-4 my-3 m-0 m-md-3">
-                    <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-3">
+    <div class="container">
+        <div class="header_content mb-100">
+            <h2 class=" mt-4 fw-bold">Мои начисления</h2>
+            <p>Здесь ты можешь оформить заявку на вывод средств</p>
+        </div>
+        <div class="row p-2">
+            <div class="col-12 col-sm-6 col-lg-4 p-0 pe-sm-2 mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet gradientBG border-0 text-white">
+                    <div>
                         <p class="fs-13">Доступно к выводу</p>
-                        <h3 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h3>
-
-                        <button class="btn btn-success px-4 mb-4">Вывести</button>
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4  ps-4 mt-lg-0 mt-3">
-                        <p class="fs-13">Ожидает начисления</p>
-                        <h3 class="fw-bold"><span>0</span> <span>USD</span></h3>
-
-
-                    </div>
-                    <div class="col-12 col-sm-12 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-5">
-                        <p class="fs-13">Доступно к выводу</p>
-                        <h3 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h3>
-
-
+                        <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
+                        {% if user_verify %}
+                        <a href="{% url 'withdraws_cash' %}" class="btn btn-light px-4 br-radius">Вывод</a>
+                        {% else %}
+                        <a href="#" class="btn btn-light px-4 br-radius disabled">Вывод</a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="row border p-0 p-sm-5 my-3 m-0 m-md-3">
-                    <div class="d-block d-sm-flex justify-content-center justify-content-sm-between">
-                        <h3>История начислений</h3>
-                        <select name="" class="form-select w-50" id="">
-                            <option value="1">Status</option>
-                            <option value="1">Status</option>
-                            <option value="1">Status</option>
-                            <option value="1">Status</option>
-                        </select>
-                    </div>
-<!--                    <center><span class="alert alert-danger text-center d-block w-50 my-5">Nothing</span></center>-->
-                    <div class="table-responsive">
-                        <table class="table mt-5 table-responsive">
-                            <thead>
-                            <tr>
-                                <th scope="col">НАЗВАНИЕ НАЧИСЛЕНИЯ</th>
-                                <th scope="col">ЗА КОГО</th>
-                                <th scope="col">% СТАТУС</th>
-                                <th scope="col">ИСХОДНАЯ СУММА</th>
-                                <th scope="col">К НАЧИСЛЕНИЮ</th>
-                                <th scope="col">ДАТА</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>Jacob</td>
-                                <td>Jacob</td>
-                                <td>@twitter</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
             </div>
-        </section>
+            <div class="col-12 col-sm-6 col-lg-4 p-0 ps-sm-2 pe-md-0 px-lg-2  mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet">
+                    <p class="fs-13">Ожидает начисления</p>
+                    <h5 class="fw-bold"><span>0</span> <span>USD</span></h5>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-4 p-0 ps-lg-2 mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet">
+                    <p class="fs-13">Доступно к выводу</p>
+                    <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
+                </div>
+            </div>
+        </div>
+        <div class="row border p-0 p-sm-5 my-3 m-0">
+            <div class="d-block d-sm-flex justify-content-center justify-content-sm-between">
+                <h3>История начислений</h3>
+                <select name="" class="form-select w-50" id="">
+                    <option value="1">Status</option>
+                    <option value="1">Status</option>
+                    <option value="1">Status</option>
+                    <option value="1">Status</option>
+                </select>
+            </div>
+            <!--                    <center><span class="alert alert-danger text-center d-block w-50 my-5">Nothing</span></center>-->
+            <div class="table-responsive">
+                <table class="table mt-5 table-responsive">
+                    <thead>
+                    <tr>
+                        <th scope="col">НАЗВАНИЕ НАЧИСЛЕНИЯ</th>
+                        <th scope="col">ЗА КОГО</th>
+                        <th scope="col">% СТАТУС</th>
+                        <th scope="col">ИСХОДНАЯ СУММА</th>
+                        <th scope="col">К НАЧИСЛЕНИЮ</th>
+                        <th scope="col">ДАТА</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>Jacob</td>
+                        <td>Jacob</td>
+                        <td>@twitter</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
 {% endblock %}

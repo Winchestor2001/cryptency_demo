@@ -15,8 +15,10 @@ from django.contrib.auth.decorators import login_required
 
 from .models import UsersProfile, UsersEmailVerifyTokens, Services, UserSecureData, UsersPayChecks, Videos, AdminConfigs
 
-# site_domen_link = 'http://127.0.0.1:8000'
-site_domen_link = 'http://cryptency.pythonanywhere.com'
+site_domen_link = 'http://127.0.0.1:8000'
+
+
+# site_domen_link = 'http://cryptency.pythonanywhere.com'
 
 
 def save_avatar(request, user_email):
@@ -66,16 +68,18 @@ def user_reg(request, ref_link=None):
             configs = AdminConfigs.objects.all().values()
             ref_user.user_referals += 1
             ref_user.user_referals_bonus += configs[0]['ref_bonus1']
+            ref_user.user_balance += configs[0]['ref_bonus1']
             ref_user.save()
             reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
-                               user_country=country, user_referal_email1=is_ref, user_referals_link=f'{site_domen_link}/user_referal/{token}')
+                               user_country=country, user_referal_email1=is_ref,
+                               user_referals_link=f'{site_domen_link}/user_referal/{token}')
         else:
             reg = UsersProfile(user=usr, user_name=name, user_surname=surname, user_email=email, user_password=pwd,
                                user_country=country, user_referals_link=f'{site_domen_link}/user_referal/{token}')
         UsersEmailVerifyTokens(user_email=email, user_token=token).save()
         reg.sert_id = "%05i" % (usr.id,)
         reg.save()
-        context['status'] = 'Пожалуста подтвердите почту'
+        context['status'] = 'Для продолжения работы подтвердите свою почту'
         html = render_to_string(
             'cryptency/email_body.html',
             {'verify_url': f'{site_domen_link}/auth/email_verify/{token}'}
@@ -184,7 +188,6 @@ def user_profile(request):
 @login_required
 def user_profile_accrual(request):
     user = UsersProfile.objects.get(user_email=request.user)
-    token = secrets.token_hex(15)
     data = {
         'user_email': user.user_email,
         'user_referals_bonus': user.user_referals_bonus,
@@ -194,7 +197,7 @@ def user_profile_accrual(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
@@ -216,13 +219,34 @@ def user_profile_withdraws(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
     if request.method == 'POST':
         save_avatar(request, user.user_email)
     return render(request, 'cryptency/user_withdraws.html', context=data)
+
+
+@login_required
+def user_profile_withdraws_cash(request):
+    user = UsersProfile.objects.get(user_email=request.user.email)
+    data = {
+        'user_email': user.user_email,
+        'user_referals_bonus': user.user_referals_bonus,
+        'user_photo': user.user_photo,
+        'user_name': user.user_name,
+        'user_surname': user.user_surname,
+        'user_balance': user.user_balance,
+        'user_referals': user.user_referals,
+        'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
+        'user_verify': True if user.user_verify else False,
+        'user_reg_date': user.user_reg_date,
+    }
+    if user.user_verify:
+        return render(request, 'cryptency/withdraw_cash.html', context={'user_data': user})
+    else:
+        return redirect('profile')
 
 
 @login_required
@@ -238,7 +262,7 @@ def user_profile_contacts(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
@@ -258,6 +282,7 @@ def user_profile_videos(request):
         'user_name': user.user_name,
         'user_surname': user.user_surname,
         'user_balance': user.user_balance,
+        'user_verify': True if user.user_verify else False,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
 
     }
@@ -267,7 +292,7 @@ def user_profile_videos(request):
         service_pks = []
         user_videos_data = []
         user2 = UsersPayChecks.objects.filter(user_email=request.user.email)
-        if len(user2) != 0:
+        if len(user2) != 0 and user2.paid:
             for pks in user2:
                 service_pks.append(pks.service_pk)
         for i in service_pks:
@@ -306,12 +331,14 @@ def user_profile_settings(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': user.user_verify,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
     if request.method == 'POST':
         save_avatar(request, request.user.email)
+        return redirect('settings_profile')
+
     return render(request, 'cryptency/settings_profile.html', context=data)
 
 
@@ -328,7 +355,7 @@ def user_profile_support(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
@@ -357,6 +384,7 @@ def user_profile_purchase(request):
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
         'services': services if len(services) != 0 else False,
         'pay_status': True if pay_status == 0 else False,
+        'user_verify': True if user.user_verify else False,
     }
     if request.method == 'GET' and 'simbole' in request.GET:
         if request.GET['simbole'] == 'usd':
@@ -382,7 +410,7 @@ def settings_secure(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
@@ -394,7 +422,6 @@ def settings_secure(request):
             pass2 = request.POST['password2']
             user = UsersProfile.objects.get(user_email=request.user)
             user2 = User.objects.get(username=request.user)
-            print(user.user_password, pass1)
             if user.user_password == pass1:
                 user.user_password = pass2
                 user2.set_password(pass2)
@@ -423,7 +450,7 @@ def settings_document(request):
         'user_balance': user.user_balance,
         'user_referals': user.user_referals,
         'ref_link': user.user_referals_link if user.user_referals_link != 'none' else 'none',
-        'user_verify': 'Верифицирован' if user.user_verify else None,
+        'user_verify': True if user.user_verify else False,
         'user_reg_date': user.user_reg_date,
 
     }
@@ -496,7 +523,6 @@ def check_user_referal(request, ref_link):
 
     if request.method == 'POST':
         return redirect('user_reg')
-
 
 
 def email_verify(request, user_token):

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="header_content mb-100 row justify-content-center">
             <div class="col-12 col-sm-8 col-md-9 col-lg-10">
-                <h1 class="display-6 fw-bold">Оформить покупку</h1>
+                <h2 class=" mt-4 fw-bold">Оформить покупку</h2>
                 <p>Выберите один из продуктов</p>
             </div>
             <div class="col-5 col-sm-4 col-md-3 col-lg-2">
@@ -43,14 +43,14 @@
         {% if not services %}
         <center>
             <div class="alert alert-danger text-center w-50" role="alert">
-            В базе нет услуг
-        </div>
+                В базе нет услуг
+            </div>
         </center>
         {% else %}
         {% for service in services %}
         <div class="row bg-light mt-4">
             <div class="col-12 col-md-4 p-md-0">
-                <div class="card purchase_card text-center py-5">
+                <div class="card purchase_card text-center text-white py-5">
                     <center>
                         <img class="navbar_img"
                              src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
@@ -61,7 +61,7 @@
                         <h2 id="h2_1" class="card-title my-4 fw-bold">* {{service.service_price1}} USD</h2>
                         <h2 id="h2_2" class="card-title my-4 fw-bold d-none">* {{service.service_price2}} BYN</h2>
                         <center>
-                            <a href="#" class="btn btn-warning d-inline d-md-none">Купить</a>
+                            <a href="buy/{{ service.pk }}" class="purchase_btn shadow d-inline d-md-none">Купить</a>
                         </center>
                     </div>
                 </div>
@@ -72,11 +72,12 @@
                     <h6 class="fw-bold">Подробнее</h6>
                     <i class="fa-solid fa-caret-down"></i>
                 </div>
-                <div class=" purchase_text d-none d-md-block mt-3">
+                <div class=" purchase_text d-none d-md-block mt-3 mb-5">
                     <h6 class=" fw-bold ">{{service.service_title}}</h6>
                     <p>{{service.service_description}}</p>
-                    <a href="buy/{{ service.pk }}" class="btn btn-warning d-none d-md-inline">Купить</a>
+                    <a href="buy/{{ service.pk }}" class="purchase_btn shadow d-none d-md-inline mb-4">Купить</a>
                 </div>
+                <a href="{% static 'profile_support' %}" class="h6" style="text-decoration: none; color: #808080;"><i class="fa-solid fa-comment-dots me-2"></i>Написать в поддержку</a>
             </div>
         </div>
         {% endfor %}
@@ -90,36 +91,47 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
 <script>
-
     function selectSimbole() {
-        let select_simbol = document.querySelector('#cash_simbole').value;
+    let select_simbol = document.querySelector('#cash_simbole').value;
 
-        $.ajax({
-            url: "{% url 'user_purchase' %}",
-            type: 'get',
-            data: { simbole: select_simbol },
-            success: function (data) {
-                if (data == 'byn'){
+    $.ajax({
+        url: "{% url 'user_purchase' %}",
+        type: 'get',
+        data: { simbole: select_simbol },
+        success: function (data) {
+            if (data == 'byn'){
 
-                    document.querySelectorAll('#h2_1').forEach(item => {
-                        item.classList.add('d-none')
-                    });
-                    document.querySelectorAll('#h2_2').forEach(item => {
-                        item.classList.remove('d-none')
-                    })
-                }
-                else {
-                    document.querySelectorAll('#h2_2').forEach(item => {
-                        item.classList.add('d-none')
-                    });
-                    document.querySelectorAll('#h2_1').forEach(item => {
-                        item.classList.remove('d-none')
-                    })
-                }
+                document.querySelectorAll('#h2_1').forEach(item => {
+                    item.classList.add('d-none')
+                });
+                document.querySelectorAll('#h2_2').forEach(item => {
+                    item.classList.remove('d-none')
+                })
             }
-        });
-    }
-
+            else {
+                document.querySelectorAll('#h2_2').forEach(item => {
+                    item.classList.add('d-none')
+                });
+                document.querySelectorAll('#h2_1').forEach(item => {
+                    item.classList.remove('d-none')
+                })
+            }
+        }
+    });
+}
+const purchase_text_btn = document.querySelectorAll(('.purchase_text_btn'))
+purchase_text_btn.forEach(item => {
+    // console.log(item.parentElement.children[1]);
+    item.addEventListener('click', (e) => {
+        item.parentElement.children[1].classList.toggle('d-none')
+        if (item.children[1].style.transform == 'rotate(180deg)') {
+            item.children[1].style.transform = 'rotate(0deg)';
+        }
+        else {
+            item.children[1].style.transform = 'rotate(180deg)';
+        }
+    })
+})
 
 </script>
 

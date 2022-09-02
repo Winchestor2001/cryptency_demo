@@ -101,7 +101,7 @@ class AdminConfigs(models.Model):
 class UsersPayChecks(models.Model):
     user_pay_check = models.ImageField(upload_to='users_pay_check/', blank=True, null=True, verbose_name='Чек об оплате')
     user_email = models.CharField(max_length=50, verbose_name='E-mail')
-    service_name = models.CharField(max_length=100, verbose_name='Название сервиса')
+    service_name = models.CharField(max_length=100, blank=True, verbose_name='Название сервиса')
     service_pk = models.IntegerField(unique=True, verbose_name='ID сервиса')
     user_pay_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата оплаты')
     paid = models.BooleanField(default=False, verbose_name="Оплатил?")
@@ -110,8 +110,8 @@ class UsersPayChecks(models.Model):
         return self.user_email
 
     class Meta:
-        verbose_name = "Проверка оплат"
-        verbose_name_plural = "Проверка оплаты"
+        verbose_name = "Проверка оплат и Услуг"
+        verbose_name_plural = "Проверка оплаты и Услуги"
 
 
 class Videos(models.Model):

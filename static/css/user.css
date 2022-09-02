@@ -164,18 +164,6 @@ body {
     font-size: 12px;
 }
 
-.attention {
-    color: #000;
-    background: #ffc10718;
-    border: 1px solid #FFC107;
-    list-style: circle;
-}
-
-.attention li::marker {
-    color: #FFC107 !important;
-    background: #FFC107 !important;
-}
-
 .singupCard {
     width: 35%;
     position: relative;
@@ -361,7 +349,9 @@ body {
 }
 
 .purchase_card {
-    background:linear-gradient(rgba(0, 0, 0, .3),rgba(0, 0, 0, .3)), url('../images/1612579354_5-p-fon-dlya-prezentatsii-oranzhevii-s-zelenim-6.jpg');
+    background: #000000;
+    background: -webkit-linear-gradient(to top, #434343, #000000);
+    background: linear-gradient(to top, #434343, #000000);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -567,3 +557,55 @@ div[role="progressbar"]::before {
     counter-reset: percentage var(--value);
     content: counter(percentage) "%";
 }
+
+.profile_border{
+    border: 3px dashed #D5713E;
+}
+.purchase_btn{
+    position: relative;
+    top: 15px;
+    text-decoration: none;
+    color: #000;
+    background: #E7B458;
+    padding: 12px 35px;
+    border-radius: 20px;
+    font-size: 17px;
+    border: 2px solid #E7B458;
+    transition: all .3s linear;
+}
+.purchase_btn:hover{
+    color: #E7B458;
+    background: transparent;
+}
+
+.cardKabinet{
+    border: 2px dotted red !important;
+}
+.gradientBG{
+    background: linear-gradient(to bottom, rgba(213, 113, 62, 0.9) 0%, rgba(241, 161, 22, 0.57) 100%);
+}
+.attention {
+    color: #000;
+    background: linear-gradient(to bottom, rgba(58, 54, 52, 0.9) 0%, rgba(0, 0, 0, 0.57) 100%);
+    border: 1px solid #FFC107;
+    border-radius: 5px;
+    color: #fff;
+}
+.attention ul{
+    list-style: none;
+    opacity: .8;
+}
+.attention ul a{
+    color: #FFC107;
+}
+.paperPlane{
+   width: 100px !important;
+   position: absolute;
+   top: -65px;
+   left: -27px;
+
+}
+.br-radius{
+    border-radius: 50px !important;
+}
+

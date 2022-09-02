@@ -7,74 +7,76 @@
 <section class="usd content active right-content" id="myOfficde">
     <div class="container">
         <div class="header_content mb-100">
-            <h1 class="display-6 fw-bold">Мой кабинет</h1>
+            <h2 class=" mt-4 fw-bold">Мой кабинет</h2>
             <p>Здесь ты можешь оформить заявку на вывод средств</p>
         </div>
-        <div class="row border pt-4 ps-4 my-3 m-0 m-md-3">
-            <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-3">
-                <p class="fs-13">Доступно к выводу</p>
-                <h3 class="fw-bold"><span>{{user_balance}}</span> <span>USD</span></h3>
-                <button class="btn btn-success px-4 mb-4">Вывести</button>
+        <div class="row p-2">
+            <div class="col-12 col-sm-6 col-lg-4 p-0 pe-sm-2 mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet gradientBG border-0 text-white">
+                    <div>
+                        <p class="fs-13">Доступно к выводу</p>
+                        <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
+                        {% if user_verify %}
+                        <a href="{% url 'withdraws_cash' %}" class="btn btn-light px-4 br-radius">Вывод</a>
+                        {% else %}
+                        <a href="#" class="btn btn-light px-4 br-radius disabled">Вывод</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 border-top border-start pt-4  ps-4 mt-lg-0 mt-3">
-                <p class="fs-13">Ожидает начисления</p>
-                <h3 class="fw-bold"><span>0</span> <span>USD</span></h3>
-
-
+            <div class="col-12 col-sm-6 col-lg-4 p-0 ps-sm-2 pe-md-0 px-lg-2  mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet">
+                    <p class="fs-13">Ожидает начисления</p>
+                    <h5 class="fw-bold"><span>0</span> <span>USD</span></h5>
+                </div>
             </div>
-            <div class="col-12 col-sm-12 col-lg-4 border-top border-start pt-4 ps-4  mt-lg-0 mt-5">
-                <p class="fs-13">Доступно к выводу</p>
-                <h3 class="fw-bold"><span>{{user_balance}}</span> <span>USD</span></h3>
-
+            <div class="col-12 col-sm-12 col-lg-4 p-0 ps-lg-2 mt-3 mt-lg-0">
+                <div class="card py-4 px-3 h-100  cardKabinet">
+                    <p class="fs-13">Доступно к выводу</p>
+                    <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
+                </div>
             </div>
         </div>
-        <ul class="row p-4 p-sm-5 m-0 my-3 m-md-3 attention">
+        <div class="row p-4 position-relative m-0 my-3 mt-4  attention">
+            <img src="{% static 'images/Ресурс 23@8x.png' %}" class="paperPlane d-none d-sm-block" alt="">
             <h6>Внимание!</h6>
-            <li>Минимальная сумма вывода 20</li>
-            {% if not user_verify %}
-            <li>У Вас не пройдена <a href="#">верификация</a></li>
-            {% endif %}
-            {% if not purchase_status %}
-            <li>Вы не можете вывести средства, т.к. у Вас нет <a href="#">купленных пакетов</a></li>
-            {% endif %}
+            <ul>
+                <li>Минимальная сумма вывода 20</li>
+                {% if not user_verify %}
+                <li>У Вас не пройдена <a href="{% url 'settings_docs' %}">верификация</a></li>
+                {% endif %}
+                {% if not purchase_status %}
+                <li>Вы не можете вывести средства, т.к. у Вас нет <a href="{% url 'user_purchase' %}">купленных пакетов</a></li>
+                {% endif %}
+            </ul>
 
-        </ul>
-        <div class="row p-0 p-lg-3">
-            <div class="col-12">
-                <div class="row bg-light">
-                    <div class="col-12 col-md-6 p-0">
-                        <div class="border mx-0 card p-4">
-                            <p>Базовый уровень</p>
-                            <h4 class="fw-bold">0 Level</h4>
-                            <center>
-                                <div
-                                        role="progressbar"
-                                        aria-valuenow="{{ user_balance }}"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                        style="--value: {{ user_balance }}"
-                                ></div>
-                            </center>
-                            <div class="text-center border-bottom mt-3">
-                                <h5>Групповой оборот</h5>
-                                <p>Цель: <b>0 USD</b></p>
-                            </div>
-                            <div class="mt-3">
-                                <p class="mt-2"><b class="fs-13">Условия перехода на следующий уровень:</b></p>
-                            </div>
-                        </div>
+        </div>
+        <div class="row pt-2 ">
+            <div class="col-12 col-md-6">
+                <div class="align-items-center profile_border d-flex p-3">
+                    <div class="p-3">
+                        <h5 class="fw-bold mb-3">Рефералов приглашено</h5>
+                        <i style="color: #808080; font-size: 20px;" class="fa-solid fa-user-group"></i>
+                        <span class="ms-3 fw-bold h5">{{ user_referals }}</span>
+                        <span style="letter-spacing: 0.5px;"
+                              class="text-muted d-block mt-4">Приглашенные рефералы {{ user_referals }} чел</span>
                     </div>
-                    <div class="col-12 col-md-6 p-5">
-                        <ul>
-                            <h5>Информация о рефералах</h5>
-                            <li>Приглашенные рефералы: {{ user_referals }}</li>
-                            <li>Заработано от рефералов: {{ user_referals_bonus }}$</li>
-                        </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 pt-4 pt-sm-0">
+                <div class="align-items-center profile_border d-flex p-3">
+                    <div class="p-3">
+                        <h5 class="fw-bold mb-3">Всего заработано с рефералов</h5>
+                        <i style="color: #808080; font-size: 20px;" class="fa-solid fa-sack-dollar"></i><span
+                            class="ms-3 fw-bold h5">{{ user_referals_bonus }} USD</span>
+                        <span style="letter-spacing: 0.5px;"
+                              class="text-muted d-block mt-4">Заработано от рефералов {{ user_referals_bonus }}$</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row p-0 p-sm-3 pt-2 ">
+
+        <div class="row pt-2 ">
             <div class="col-12 col-md-6">
                 <div class="align-items-center border d-flex p-3">
                     <div class="border-end p-3">

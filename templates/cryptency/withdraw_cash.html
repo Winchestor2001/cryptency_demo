@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вывод средств</title>
+    <!-- logo title -->
+    <link rel="icon" href="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}">
+    <!-- Bootstrap link-->
+    <link rel="stylesheet" href="{% static 'asserts/bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
+    <!-- Fontawesome link -->
+    <link rel="stylesheet" href="{% static 'asserts/fontawesome-free-6.2.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <style>
+        .packet a{
+            text-decoration: none;
+            color: #000;
+        }
+        .packet a:hover{
+            color: #FFC107;
+        }
+        .navbar_img {
+            width: 60px;
+        }
+
+        .circle_one {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            background: #FFC20B;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="packet py-5">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center mb-3" href="#">
+            <img class="navbar_img" src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}" alt="">
+            <h3 class="fw-bold">Cryptency</h3>
+        </a>
+        <div class="row">
+            <div class="d-flex align-items-center gap-4">
+                <a href="{% url 'profile_withdraws' %}"><i class="fa-solid fa-angle-left fa-2x "></i></a>
+                <h2>Вывод денег</h2>
+            </div>
+            <p>Здесь ты можешь оформить заявку на вывод денег.</p>
+            <div class="d-flex gap-3 align-items-center mt-5 mb-3">
+                <div class="circle_one"><b>1</b></div>
+                <h4>Информация о балансе</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td scope="row">Доступно</td>
+                        <th>{{user_data.user_balance}} USD</th>
+
+                    </tr>
+                    <tr>
+                        <td scope="row">Ставка ндс</td>
+                        <th>0%</th>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <form method="post">
+                    <input required type="text" class="form-control w-25 d-inline" onkeypress="return checkDigit(event)" name="card-num" placeholder="0000 0000 0000 0000" size="18" id="cr_no" minlength="19" maxlength="19">
+                    <i style="font-size:28px; color: #34eb5e; top:4px; left:10px; position: relative;" class="fa-brands fa-cc-visa"></i>
+                    <i style="font-size:28px; color: #34eb5e; top:4px; left:10px; position: relative;" class="fa-brands fa-cc-mastercard"></i>
+                    <button type="submit" class="btn btn-outline-success d-block mt-4">Отправить заявку на вывод</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap js link -->
+<script src="{% static 'asserts/bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'asserts/jquery/jqury.min.js' %}"></script>
+<!-- Bootstrap js link -->
+<script src="{% static 'js/withdraw_cash.js' %}"></script>
+</body>
+
+</html>

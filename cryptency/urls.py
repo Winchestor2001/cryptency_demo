@@ -17,6 +17,7 @@ urlpatterns = [
     path('auth/email_verify/<str:user_token>', email_verify, name='email_verify'),
     path('profile/accrual/', user_profile_accrual, name='profile_accrual'),
     path('profile/withdraws/', user_profile_withdraws, name='profile_withdraws'),
+    path('profile/withdraws/cash', user_profile_withdraws_cash, name='withdraws_cash'),
     path('profile/contacts/', user_profile_contacts, name='profile_contacts'),
     path('profile/videos/', user_profile_videos, name='profile_videos'),
     path('profile/settings/profile_data', user_profile_settings, name='settings_profile'),

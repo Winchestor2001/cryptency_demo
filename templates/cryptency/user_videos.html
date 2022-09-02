@@ -7,14 +7,16 @@
 <section class="event_video content right-content" id="event_video">
     <div class="container">
         <div class="header_content mb-100">
-            <h1 class="display-6 fw-bold">Видео-ролики</h1>
+            <h2 class="mt-4 fw-bold">Видео-ролики</h2>
         </div>
         <div class="row videos_section mb-100">
             {% if status %}
             <center>
-                <div class="alert alert-danger w-50 text-center" role="alert">
-                {{ status }}
-            </div>
+<!--                <div class="alert alert-danger w-50 text-center" role="alert">-->
+<!--                    {{ status }}-->
+<!--                </div>-->
+                <i class="fa-solid fa-video-slash text-danger" style="font-size: 200px;"></i>
+                <h2>Нет видео роликов</h2>
             </center>
             {% else %}
             {% for v in user_videos %}
@@ -49,14 +51,5 @@
 
 {% block script %}
 
-<script>
-    let videos_section = document.querySelector(".videos_section");
-let video_card = document.querySelectorAll(".video_card");
-let intro = document.querySelector(".intro");
-video_card.forEach((item) => {
-    item.addEventListener("click", function () {
-        item.children[0].style.display = "none";
-    });
-});
-</script>
+<script src="{% static 'js/user_videos.js' %}"></script>
 {% endblock %}
