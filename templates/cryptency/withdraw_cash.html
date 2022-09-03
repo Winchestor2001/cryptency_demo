@@ -73,6 +73,7 @@
                 </table>
 
                 <form method="post">
+                    {% csrf_token %}
                     <input required type="text" class="form-control w-25 d-inline" onkeypress="return checkDigit(event)" name="card-num" placeholder="0000 0000 0000 0000" size="18" id="cr_no" minlength="19" maxlength="19">
                     <i style="font-size:28px; color: #34eb5e; top:4px; left:10px; position: relative;" class="fa-brands fa-cc-visa"></i>
                     <i style="font-size:28px; color: #34eb5e; top:4px; left:10px; position: relative;" class="fa-brands fa-cc-mastercard"></i>

@@ -1,0 +1,21 @@
+{% extends 'cryptency/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Cryptency - Подтверждение почты</title>
+{% endblock %}
+
+
+{% block content %}
+<div class="singupCard shadow-lg">
+    <div class="alert alert-success text-center" role="alert">
+        {{status}}
+    </div>
+    <div class="bg-light text-center p-3">
+        <a href="{% url 'user_login' %}">Войти</a>
+        <p class="text-secondary">Если у тебя есть аккаунт</p>
+    </div>
+</div>
+
+
+{% endblock %}

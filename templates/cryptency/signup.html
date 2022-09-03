@@ -95,74 +95,75 @@
 
 
 <div class="container justify-content-center">
-    <div class="singupCard shadow">
-        <form method="post" class="p-4">
-            {% csrf_token %}
-            <h2 class="mb-4 fw-bold text-center">Регистрация</h2>
-            <div class="mb-3">
-                <label class="text-secondary fs-14">Выберите страну</label>
-                <select name="country" class="form-select py-2" id="">
-                    <option value="belarusya">Беларуссия</option>
-                    <option value="rossia">Россия</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label class="text-secondary fs-14">Имя</label>
-                <input type="text" name="name" class="form-control py-2">
-            </div>
-            <div class="mb-3">
-                <label class="text-secondary fs-14">Фамилия</label>
-                <input type="text" name="surname" class="form-control py-2">
-            </div>
-            <div class="email mb-3">
-                <label class="text-secondary fs-14">Введи свой Email</label>
-                <input type="email" name="email" class="form-control email_inp py-2">
-            </div>
-            <div>
-                <label class="text-secondary fs-14">Придумайте пароль</label>
-                <div class="input-group mb-3">
-                    <input type="password" name="password1" class="form-control password1 py-2"
-                           placeholder="Password">
-                    <span class="input-group-text bg-transparent" id="pass1"><i class="fa-solid fa-eye"></i></span>
+        <div class="singupCard shadow">
+            <form method="post" class="p-4">
+                {% csrf_token %}
+                <h2 class="mb-4 fw-bold text-center">Регистрация</h2>
+                <div class="mb-3">
+                    <label class="text-secondary fs-14">Выберите страну</label>
+                    <select name="country" class="form-select py-2" id="">
+                        <option value="belarusya">Беларуссия</option>
+                        <option value="rossia">Россия</option>
+                    </select>
                 </div>
-            </div>
-            <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
-                минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
-            <div>
-                <label class="text-secondary fs-14">Повторите пароль</label>
-                <div class="input-group mb-3">
-                    <input type="password" name="password2" class="form-control password2 py-2" placeholder="Password">
-                    <span class="input-group-text bg-transparent" id="pass2"><i class="fa-solid fa-eye"></i></span>
+                <div class="mb-3">
+                    <label class="text-secondary fs-14">Имя</label>
+                    <input type="text" name="name" class="form-control py-2">
                 </div>
+                <div class="mb-3">
+                    <label class="text-secondary fs-14">Фамилия</label>
+                    <input type="text" name="surname" class="form-control py-2">
+                </div>
+                <div class="email mb-3">
+                    <label class="text-secondary fs-14">Введи свой Email</label>
+                    <input type="email" name="email" class="form-control email_inp py-2">
+                </div>
+                <div>
+                    <label class="text-secondary fs-14">Придумайте пароль</label>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password1" class="form-control password1 py-2"
+                               placeholder="Password">
+                        <span class="input-group-text bg-transparent" id="pass1"><i class="fa-solid fa-eye"></i></span>
+                    </div>
+                </div>
+                <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
+                    минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
+                <div>
+                    <label class="text-secondary fs-14">Повторите пароль</label>
+                    <div class="input-group mb-3">
+                        <input type="password" name="password2" class="form-control password2 py-2" placeholder="Password">
+                        <span class="input-group-text bg-transparent" id="pass2"><i class="fa-solid fa-eye"></i></span>
+                    </div>
+                </div>
+                <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
+                <div class="form-check">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexCheckDefault"
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                    />
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Соглашаюсь с политикой сайта
+                    </label>
+                </div>
+                <center>
+                    <input name="is_ref" type="text" value="{{ is_ref }}" hidden/>
+                    <button type="submit" id="submit_btn" class="btn btn-warning shadow px-5 my-3">Регистрация</button>
+                </center>
+                {% if status %}
+                <div class="alert alert-warning text-center" role="alert">
+                    {{ status }}
+                </div>
+                {% endif %}
+            </form>
+            <div class="bg-light text-center p-3">
+                <a href="{% url 'user_login' %}">Войти</a>
+                <p class="text-secondary">Если у тебя есть аккаунт</p>
             </div>
-            <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
-            <div class="form-check">
-                <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="flexCheckDefault"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                />
-                <label class="form-check-label" for="flexCheckDefault">
-                    Соглашаюсь с политикой сайта
-                </label>
-            </div>
-            <center>
-                <input name="is_ref" type="text" value="{{ is_ref }}" hidden/>
-                <button type="submit" id="submit_btn" class="btn btn-warning shadow px-5 my-3">Регистрация</button>
-            </center>
-            {% if status %}
-            <div class="alert alert-warning" role="alert">
-                {{ status }}
-            </div>
-            {% endif %}
-        </form>
-        <div class="bg-light text-center p-3">
-            <a href="{% url 'user_login' %}">Войти</a>
-            <p class="text-secondary">Если у тебя есть аккаунт</p>
         </div>
-    </div>
+
 </div>
 {% endblock %}
 
@@ -187,6 +188,7 @@
         checkbox.checked = true;
         submit_btn.disabled = false;
       })
+
 
 </script>
 

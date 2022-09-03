@@ -10,6 +10,28 @@
             <h2 class=" mt-4 fw-bold">Мой кабинет</h2>
             <p>Здесь ты можешь оформить заявку на вывод средств</p>
         </div>
+        {% if withdraw_status %}
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </symbol>
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+                <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show p-4" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill"/>
+                    </svg>
+                    <div>
+                        <strong>Проверка вывода...</strong> Заявка на вывод денег в обработке.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                {% endif %}
         <div class="row p-2">
             <div class="col-12 col-sm-6 col-lg-4 p-0 pe-sm-2 mt-3 mt-lg-0">
                 <div class="card py-4 px-3 h-100  cardKabinet gradientBG border-0 text-white">
@@ -27,7 +49,11 @@
             <div class="col-12 col-sm-6 col-lg-4 p-0 ps-sm-2 pe-md-0 px-lg-2  mt-3 mt-lg-0">
                 <div class="card py-4 px-3 h-100  cardKabinet">
                     <p class="fs-13">Ожидает начисления</p>
+                    {% if withdraw_cash %}
+                    <h5 class="fw-bold"><span>{{ withdraw_cash }}</span> <span>USD</span></h5>
+                    {% else %}
                     <h5 class="fw-bold"><span>0</span> <span>USD</span></h5>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-lg-4 p-0 ps-lg-2 mt-3 mt-lg-0">
@@ -71,37 +97,6 @@
                             class="ms-3 fw-bold h5">{{ user_referals_bonus }} USD</span>
                         <span style="letter-spacing: 0.5px;"
                               class="text-muted d-block mt-4">Заработано от рефералов {{ user_referals_bonus }}$</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row pt-2 ">
-            <div class="col-12 col-md-6">
-                <div class="align-items-center border d-flex p-3">
-                    <div class="border-end p-3">
-                        <p class="fs-13 m-0">Прогнозируемый оборот</p>
-                        <h5 class="fw-bold">0 USD</h5>
-                    </div>
-                    <div class="p-3">
-                        <p class="fs-13 m-0">Факт на</p>
-                        <h5 class="fw-bold">0 USD</h5>
-                        <p class="fs-13 m-0">Факт на сегодня</p>
-                        <h5 class="fw-bold">0 USD</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 pt-4 pt-sm-0">
-                <div class="align-items-center border d-flex p-3">
-                    <div class="border-end p-3">
-                        <p class="fs-13 m-0">Прогнозируемый оборот</p>
-                        <h5 class="fw-bold">0 USD</h5>
-                    </div>
-                    <div class="p-3">
-                        <p class="fs-13 m-0">Остаток за месяц</p>
-                        <h5 class="fw-bold">0 USD</h5>
-                        <p class="fs-13 m-0">План на сегодня</p>
-                        <h5 class="fw-bold">0 USD</h5>
                     </div>
                 </div>
             </div>

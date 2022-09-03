@@ -1,3 +1,12 @@
+window.onload = () => {
+    let loader = document.querySelector('#preloader');
+    let tanirovka = document.querySelector('.tanirovka');
+    loader.style.opacity = 0;
+    loader.style.visibility = 'hidden';
+    tanirovka.style.opacity = 0;
+    tanirovka.style.visibility = 'hidden';
+};
+
 let get_file = document.querySelector(".get_file");
 let get_file_input = document.querySelector("#get_file_input");
 get_file.addEventListener("click", function () {

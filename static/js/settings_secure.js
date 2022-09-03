@@ -3,15 +3,26 @@ let input2 = document.querySelector('.password2')
 let input3 = document.querySelector('.password3')
 
 let error = document.querySelector('.error')
-input2.addEventListener('blur', () => {
+let error1 = document.querySelector('.error1')
+input2.addEventListener('input', () => {
     if (input2.value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/)) {
-         console.log(input1.value);
-         console.log('True');
         error.classList.add('dNone')
+        input2.style.background = '#67e088'
     }
     else {
         error.classList.remove('dNone')
-         console.log('Error');
+         input2.style.background = '#f76060'
+    }
+});
+input3.addEventListener('input', ()=>{
+
+    if (input3.value==input1.value){
+        error1.classList.add('dNone')
+        input3.style.background = '#67e088'
+    }
+    else{
+        error1.classList.remove('dNone')
+        input3.style.background = '#f76060'
     }
 });
 

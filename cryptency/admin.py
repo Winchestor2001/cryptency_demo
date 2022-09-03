@@ -4,6 +4,7 @@ from cryptency.models import *
 
 
 class UsersPayChecksAdmin(admin.ModelAdmin):
+    search_fields = ['user_email', 'user_pay_date', 'service_name']
     list_display = ('user_email', 'service_name', 'service_pk', 'paid', 'user_pay_date', 'user_pay_check')
 
 
@@ -12,6 +13,7 @@ class ServicesAdmin(admin.ModelAdmin):
 
 
 class UsersProfileAdmin(admin.ModelAdmin):
+    search_fields = ['user_email', 'user_pay_date', 'service_name', 'user_name', 'user_verify']
     list_display = ('user_name', 'user_email', 'user_balance', 'user_verify', 'user_reg_date', 'user_photo')
 
 
@@ -23,7 +25,13 @@ class VideosAdmin(admin.ModelAdmin):
     list_display = ('video_title', 'service_pk')
 
 
+class UsersWithdrawAdmin(admin.ModelAdmin):
+    search_fields = ['user_email', 'user_card_num']
+    list_display = ('user_email', 'user_balance', 'user_card_num', 'paid', 'user_withdraw_date')
+
+
 admin.site.register(UsersProfile, UsersProfileAdmin)
+admin.site.register(UsersWithdraw, UsersWithdrawAdmin)
 admin.site.register(UsersEmailVerifyTokens)
 admin.site.register(UserSecureData)
 admin.site.register(Services, ServicesAdmin)

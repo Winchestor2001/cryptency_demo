@@ -18,14 +18,16 @@
     {% endblock %}
 </head>
 <body>
-<div id="preloader">
-    <div id="loader"></div>
-</div>
+    <div id="preloader">
+        <div class="tanirovka"></div>
+        <div id="loader"></div>
+    </div>
 {% block content %}
 {% endblock %}
 
 <!--Bootstrap Js-->
-<link rel="stylesheet" href="{% static 'asserts/bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js' %}">
+<script rel="stylesheet" src="{% static 'asserts/bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+<script rel="stylesheet" src="{% static 'js/user.js' %}"></script>
 {% block script %}
 {% endblock %}
 </body>

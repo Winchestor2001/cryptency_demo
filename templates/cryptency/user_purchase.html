@@ -42,9 +42,8 @@
         {% endif %}
         {% if not services %}
         <center>
-            <div class="alert alert-danger text-center w-50" role="alert">
-                В базе нет услуг
-            </div>
+            <i class="fa-solid fa-shop-slash text-danger" style="font-size: 200px;"></i>
+            <h2> В базе нет услуг</h2>
         </center>
         {% else %}
         {% for service in services %}
@@ -77,7 +76,8 @@
                     <p>{{service.service_description}}</p>
                     <a href="buy/{{ service.pk }}" class="purchase_btn shadow d-none d-md-inline mb-4">Купить</a>
                 </div>
-                <a href="{% static 'profile_support' %}" class="h6" style="text-decoration: none; color: #808080;"><i class="fa-solid fa-comment-dots me-2"></i>Написать в поддержку</a>
+                <a href="{% static 'profile_support' %}" class="h6" style="text-decoration: none; color: #808080;"><i
+                        class="fa-solid fa-comment-dots me-2"></i>Написать в поддержку</a>
             </div>
         </div>
         {% endfor %}
@@ -132,6 +132,7 @@ purchase_text_btn.forEach(item => {
         }
     })
 })
+
 
 </script>
 

@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      property="vk:image"
+      content="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+    />
+    <meta
+      name="twitter:image"
+      content="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+    />
+    <meta
+      property="og:image"
+      content="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
     <link rel="icon" href="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}">
     <!-- Bootstrap link-->
     <link rel="stylesheet" href="{% static 'asserts/bootstrap-5.2.0-dist/css/bootstrap.min.css' %}">
@@ -16,6 +29,7 @@
 </head>
 <body>
 <div id="preloader">
+    <div class="tanirovka"></div>
     <div id="loader"></div>
 </div>
 
@@ -33,7 +47,7 @@
 </div>
 
 <section class="container-fluid about p-0">
-    <section class="header rgb pb-100 mb-5">
+    <section class="header rgb mb-5">
         <div class="header_menu">
             <nav class="navbar navbar-expand-lg bg-transparent">
                 <div class="container-fluid">
@@ -47,17 +61,17 @@
                     </button>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav mb-2 mb-lg-0 col justify-content-end me-5 text-uppercase">
-                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="myOfficde"><a href="{% url 'profile' %}">МОЙ
+                            <li class="mx-3 my-2 fw-bold tap-btn"><a href="{% url 'profile' %}">МОЙ
                                 КАБИНЕТ</a></li>
-                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="myAccount"><a
+                            <li class="mx-3 my-2 fw-bold tap-btn"><a
                                     href="{% url 'profile_accrual' %}">МОИ НАЧИСЛЕНИЯ</a></li>
-                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="withDrawals"><a
+                            <li class="mx-3 my-2 fw-bold tap-btn"><a
                                     href="{% url 'profile_withdraws' %}">ВЫВОД СРЕДСТВ</a></li>
-                            <li class="mx-3 my-2 fw-bold tap-btn" data-id="contact"><a
+                            <li class="mx-3 my-2 fw-bold tap-btn"><a
                                     href="{% url 'profile_contacts' %}">Контакты</a></li>
                         </ul>
                         <div class="d-flex align-items-center gap-3">
-                            <div class="fw-bold fs-15 text-success">{{ user_balance }} USD</div>
+                            <div class="fw-bold fs-15 text-success"><i class="fa-solid fa-sack-dollar me-2 text-warning"></i>{{ user_balance }} USD</div>
                             <div class="menue_img">
                                 {% if user_photo %}
                                 <img class="circle-img"
@@ -98,9 +112,9 @@
                 </div>
             </div>
             {% if user_verify %}
-            <h6 class="my-3 text-center text-lg-start h5">{{ user_surname }} {{ user_name }} <i style="color: #66C462; font-size: 20px;" class="shadow ms-2 fa-solid fa-user-shield"></i></h6>
+            <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }} <i style="color: #66C462; font-size: 20px;" class="ms-2 fa-solid fa-user-shield"></i></h6>
             {% else %}
-            <h6 class="my-3 text-center text-lg-start h5">{{ user_surname }} {{ user_name }} <i style="color: #DC3545; font-size: 20px;" class="shadow ms-2 fa-solid fa-user-shield"></i></h6>
+            <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }} <i style="color: #DC3545; font-size: 20px;" class="ms-2 fa-solid fa-user-shield"></i></h6>
             {% endif %}
             <a href="{% url 'user_purchase' %}" class="btn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
             <br>
@@ -112,21 +126,21 @@
 
             <ul class="userMenu ">
                 <div class="navbar-nav d-block d-lg-none text-uppercase">
-                    <li class="my-2 fs-14 tap-btn" data-id="myOfficde">
+                    <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-user me-2"></i>
                         <a style="color:#808080; text-decoration:none;" href="{% url 'profile' %}">МОЙ КАБИНЕТ</a>
                     </li>
-                    <li class="my-2 fs-14 tap-btn" data-id="myAccount">
+                    <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-bag-shopping me-2"></i>
                         <a style="color:#808080; text-decoration:none;" href="{% url 'profile_accrual' %}">МОИ
                             НАЧИСЛЕНИЯ</a>
                     </li>
-                    <li class="my-2 fs-14 tap-btn" data-id="withDrawals">
+                    <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-wallet me-2"></i>
                         <a style="color:#808080; text-decoration:none;" href="{% url 'profile_withdraws' %}">ВЫВОД
                             СРЕДСТВ</a>
                     </li>
-                    <li class="my-2 fs-14 tap-btn" data-id="contact">
+                    <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-phone-volume me-2"></i>
                         <a style="color:#808080; text-decoration:none;"
                            href="{% url 'profile_contacts' %}">КОНТАКТЫ</a>
@@ -134,18 +148,18 @@
                 </div>
 
                 <div class="my-3 border-top border-bottom text-secondary">
-                    <li data-id="event_video">
+                    <li>
                         <i class="fa-solid fa-video me-2"></i>
                         <a style="color:#808080; text-decoration:none;"
                            href="{% url 'profile_videos' %}">Видео-ролики</a>
                     </li>
                 </div>
-                <li class="tap-btn" data-id="mySettings">
+                <li class="tap-btn">
                     <i class="fa-solid fa-gear me-2"></i>
                     <a style="color:#808080; text-decoration:none;"
                        href="{% url 'settings_profile' %}">Настройки</a>
                 </li>
-                <li class="tap-btn" data-id="support">
+                <li class="tap-btn">
                     <i class="fa-solid fa-circle-question me-2"></i>
                     <a style="color:#808080; text-decoration:none;" href="{% url 'profile_support' %}">Обратная
                         связь</a>
@@ -166,13 +180,36 @@
                     <p>Здесь ты можешь изменить настройки учетной записи и сменить пароль.
                         Пожалуйста, <br> свяжись с нами , если у тебя есть вопросы.</p>
                 </div>
+               {% if user_data_verify %}
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </symbol>
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+                <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show p-4" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill"/>
+                    </svg>
+                    <div>
+                        <strong>Проверка личных данных...</strong> После проверки вам будет доступны вывод денег.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
                 <div class="border-bottom my-3 m-0 m-md-3 d-flex settingsMenue">
-                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn" data-bs-target="myprofil"><a
+                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn"><a
                             href="{% url 'settings_profile' %}">ПРОФИЛЬ</a></p>
-                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn" data-bs-target="changeEmail">
+                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn">
                         <a href="{% url 'settings_secure' %}">БЕЗОПАСНОСТЬ И
                             ВХОД</a></p>
-                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn" data-bs-target="myDocument"><a
+                    <p class="py-2 my-0 mx-1 mx-md-3 fs-13 fw-bold sett-btn"><a
                             href="{% url 'settings_docs' %}">ПРОВЕРКА
                         ДОКУМЕНТОВ</a>
                     </p>
@@ -212,21 +249,6 @@
                         <li><a href="#">О проекте</a></li>
                         <li><a href="#">О проекте</a></li>
                     </ul>
-                </div>
-                <div class="col-12 col-lg-4">
-                    <div class="text-center d-block d-md-flex align-items-center justify-content-end gap-4">
-                        <a>Наши партнеры</a><br>
-                        <a href="#">
-                            <img style="width: 120px;"
-                                 src="https://preview.colorlib.com/theme/author/images/xpartner-4.png.pagespeed.ic.DaTQYymmyu.webp"
-                                 alt="">
-                        </a>
-                        <a href="#">
-                            <img style="width: 120px;"
-                                 src="https://preview.colorlib.com/theme/author/images/xpartner-3.png.pagespeed.ic.K6b-CsdlC4.webp"
-                                 alt="">
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
