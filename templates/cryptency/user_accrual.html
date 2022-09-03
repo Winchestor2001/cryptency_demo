@@ -9,35 +9,13 @@
             <h2 class=" mt-4 fw-bold">Мои начисления</h2>
             <p>Здесь ты можешь оформить заявку на вывод средств</p>
         </div>
-        {% if withdraw_status %}
-        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-            </symbol>
-            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-            </symbol>
-            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </symbol>
-        </svg>
-        <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show p-4" role="alert">
-            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
-                <use xlink:href="#info-fill"/>
-            </svg>
-            <div>
-                <strong>Проверка вывода...</strong> Заявка на вывод денег в обработке.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
-        {% endif %}
         <div class="row p-2">
             <div class="col-12 col-sm-6 col-lg-4 p-0 pe-sm-2 mt-3 mt-lg-0">
                 <div class="card py-4 px-3 h-100  cardKabinet gradientBG border-0 text-white">
                     <div>
                         <p class="fs-13">Доступно к выводу</p>
                         <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
-                        {% if user_verify %}
+                        {% if user_verify2 %}
                         <a href="{% url 'withdraws_cash' %}" class="btn btn-light px-4 br-radius">Вывод</a>
                         {% else %}
                         <a href="#" class="btn btn-light px-4 br-radius disabled">Вывод</a>
@@ -65,55 +43,42 @@
         <div class="row border p-0 p-sm-5 my-3 m-0">
             <div class="d-block d-sm-flex justify-content-center justify-content-sm-between">
                 <h3>История начислений</h3>
-                <select name="" class="form-select w-50" id="">
-                    <option value="1">Status</option>
-                    <option value="1">Status</option>
-                    <option value="1">Status</option>
-                    <option value="1">Status</option>
-                </select>
+                <!--                <select name="" class="form-select w-50" id="">-->
+                <!--                    <option value="1">Status</option>-->
+                <!--                    <option value="1">Status</option>-->
+                <!--                    <option value="1">Status</option>-->
+                <!--                    <option value="1">Status</option>-->
+                <!--                </select>-->
             </div>
-            <!--                    <center><span class="alert alert-danger text-center d-block w-50 my-5">Nothing</span></center>-->
+            {% if ref_static %}
             <div class="table-responsive">
                 <table class="table mt-5 table-responsive">
                     <thead>
                     <tr>
-                        <th scope="col">НАЗВАНИЕ НАЧИСЛЕНИЯ</th>
-                        <th scope="col">ЗА КОГО</th>
-                        <th scope="col">% СТАТУС</th>
-                        <th scope="col">ИСХОДНАЯ СУММА</th>
-                        <th scope="col">К НАЧИСЛЕНИЮ</th>
-                        <th scope="col">ДАТА</th>
+                        <th scope="col">Имя реферала</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Получил %</th>
+                        <th scope="col">Дата покупки</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for i in ref_static %}
                     <tr>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
+                        <td>{{ i.user_name }}</td>
+                        <td>{{ i.service_name }}</td>
+                        <td>{{ i.service_price_prosent }}$</td>
+                        <td>{{ i.service_bougth_date }}</td>
                     </tr>
-                    <tr>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Jacob</td>
-                        <td>Jacob</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
+            {% else %}
+            <center>
+                <i class="fa-solid fa-file-circle-xmark text-danger" style="font-size: 50px;"></i>
+                <h4>Нет истории начислений</h4>
+            </center>
+            {% endif %}
         </div>
 
     </div>

@@ -9,7 +9,7 @@ class UsersPayChecksAdmin(admin.ModelAdmin):
 
 
 class ServicesAdmin(admin.ModelAdmin):
-    list_display = ('service_name', 'service_title', 'service_price1', 'service_price2')
+    list_display = ('service_name', 'service_title', 'service_price1', 'service_price2', 'service_price_procent')
 
 
 class UsersProfileAdmin(admin.ModelAdmin):
@@ -22,12 +22,17 @@ class AdminConfigsAdmin(admin.ModelAdmin):
 
 
 class VideosAdmin(admin.ModelAdmin):
-    list_display = ('video_title', 'service_pk')
+    list_display = ('video_title', 'service_pk_id')
 
 
 class UsersWithdrawAdmin(admin.ModelAdmin):
     search_fields = ['user_email', 'user_card_num']
     list_display = ('user_email', 'user_balance', 'user_card_num', 'paid', 'user_withdraw_date')
+
+
+class UserReferalsServiceAdmin(admin.ModelAdmin):
+    search_fields = ['user_email', 'service_price_prosent', 'service_bougth_date']
+    list_display = ('user_email', 'user_name', 'service_price_prosent', 'service_name', 'ref_email', 'service_bougth_date')
 
 
 admin.site.register(UsersProfile, UsersProfileAdmin)
@@ -38,3 +43,4 @@ admin.site.register(Services, ServicesAdmin)
 admin.site.register(UsersPayChecks, UsersPayChecksAdmin)
 admin.site.register(Videos, VideosAdmin)
 admin.site.register(AdminConfigs, AdminConfigsAdmin)
+admin.site.register(UserReferalsService, UserReferalsServiceAdmin)

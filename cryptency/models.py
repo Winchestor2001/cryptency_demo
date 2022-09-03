@@ -12,6 +12,7 @@ class Services(models.Model):
     service_description = models.TextField(verbose_name='Описание сервиса')
     service_price1 = models.CharField(max_length=100, verbose_name='Цена сервиса на USD')
     service_price2 = models.CharField(max_length=100, verbose_name='Цена сервиса на BYN')
+    service_price_procent = models.CharField(max_length=20, verbose_name='Процент покупки сервиса %')
     # service_simbole = models.CharField(max_length=20, choices=CHOICES, verbose_name='Символ')
 
     def __str__(self):
@@ -73,19 +74,17 @@ class UserSecureData(models.Model):
     user_pass_seria = models.CharField(max_length=10, verbose_name='Серия', null=True)
     user_pass_num = models.CharField(max_length=10, verbose_name='Номер паспорта', null=True)
     user_pass_date_issue = models.CharField(max_length=10, verbose_name='Дата выдачи', null=True)
-    user_pass_issued_by = models.CharField(max_length=10, verbose_name='Кем выдан', null=True)
-    user_departmen_code = models.CharField(max_length=10, verbose_name='Код подразделения', null=True)
-    user_place_of_birth = models.CharField(max_length=10, verbose_name='Место рождения', null=True)
     user_email = models.CharField(max_length=50, unique=True, verbose_name='E-mail', null=True)
     user_pass_photo1 = models.ImageField(upload_to='users_doc/', null=True, blank=True)
     user_pass_photo2 = models.ImageField(upload_to='users_doc/', null=True, blank=True)
+    user_verify = models.BooleanField(default=False, verbose_name='Верификация')
 
     def __str__(self):
-        return self.user_email
+        return self.user_name
 
     class Meta:
-        verbose_name = "Данные о клиенте"
-        verbose_name_plural = "Данные о клиентах"
+        verbose_name = "Данные о клиенте для верификаци"
+        verbose_name_plural = "Данные о клиентах для верификаци"
 
 
 class AdminConfigs(models.Model):
@@ -94,6 +93,7 @@ class AdminConfigs(models.Model):
     ref_bonus3 = models.IntegerField(verbose_name='Реф.бонус 3 уровень')
     withdraw_sum = models.IntegerField(verbose_name='Мин. сумма вывода')
     card_number = models.CharField(max_length=100, verbose_name='Номер карты')
+    confidention_text = models.TextField(verbose_name='Политика сайта текст')
 
     class Meta:
         verbose_name = "Админ конфигурация"
@@ -112,8 +112,8 @@ class UsersPayChecks(models.Model):
         return self.user_email
 
     class Meta:
-        verbose_name = "Проверка оплат и Услуг"
-        verbose_name_plural = "Проверка оплаты и Услуги"
+        verbose_name = "Проверка оплат на слуг"
+        verbose_name_plural = "Проверка оплаты на слуги"
 
 
 class UsersWithdraw(models.Model):
@@ -135,7 +135,8 @@ class Videos(models.Model):
     video_title = models.CharField(max_length=100, verbose_name='Загаловка видео')
     video_link = models.CharField(max_length=100, verbose_name='Ссылка видео')
     video_data = models.FileField(upload_to='service_videos/', blank=True, null=True, verbose_name='Видео')
-    service_pk = models.IntegerField(verbose_name='ID сервиса')
+    # service_pk = models.IntegerField(verbose_name='ID сервиса')
+    service_pk_id = models.ForeignKey(Services, on_delete=models.CASCADE, blank=True, null=True, verbose_name='ID сервиса')
 
     def __str__(self):
         return self.video_title
@@ -143,3 +144,19 @@ class Videos(models.Model):
     class Meta:
         verbose_name = "Видео"
         verbose_name_plural = "Видео"
+
+
+class UserReferalsService(models.Model):
+    user_email = models.CharField(max_length=50, verbose_name='E-mail')
+    user_name = models.CharField(max_length=50, verbose_name='Имя')
+    service_price_prosent = models.CharField(max_length=20, verbose_name='Процент покупки сервиса %')
+    service_name = models.CharField(max_length=150, verbose_name='Название сервиса')
+    service_bougth_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата покупки')
+    ref_email = models.CharField(max_length=50, verbose_name='E-mail реферала')
+
+    def __str__(self):
+        return self.user_email
+
+    class Meta:
+        verbose_name = "Покупка сервиса"
+        verbose_name_plural = "Покупки сервисов"

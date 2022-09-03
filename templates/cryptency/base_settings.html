@@ -116,7 +116,7 @@
             {% else %}
             <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }} <i style="color: #DC3545; font-size: 20px;" class="ms-2 fa-solid fa-user-shield"></i></h6>
             {% endif %}
-            <a href="{% url 'user_purchase' %}" class="btn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
+            <a href="{% url 'user_purchase' %}" class="btn myBtn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
             <br>
             <div style="cursor: pointer;" class="d-flex justify-content-between mt-2 pe-3 ref-link" id="liveToastBtn"
                  data-link="{{ ref_link }}">
@@ -181,6 +181,7 @@
                         Пожалуйста, <br> свяжись с нами , если у тебя есть вопросы.</p>
                 </div>
                {% if user_data_verify %}
+                {% if not user_verify %}
                 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                     <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -201,6 +202,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
+                {% endif %}
                 {% endif %}
             </div>
                 <div class="border-bottom my-3 m-0 m-md-3 d-flex settingsMenue">
@@ -257,7 +259,8 @@
 
 <!--Bootstrap Js-->
 <script src="{% static 'asserts/bootstrap-5.2.0-dist/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'asserts/jquery/jqury.min.js' %}"></script>
+<!-- <script src="{% static 'asserts/jquery/jqury.min.js' %}"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 {% block script %}
 {% endblock %}
 <script src="{% static 'js/menu.js' %}"></script>

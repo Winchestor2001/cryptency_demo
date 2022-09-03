@@ -117,7 +117,7 @@
             {% else %}
             <h6 class="my-3 text-center text-lg-start">{{ user_surname }} {{ user_name }} <i style="color: #DC3545; font-size: 20px;" class="ms-2 fa-solid fa-user-shield"></i></h6>
             {% endif %}
-            <a href="{% url 'user_purchase' %}" class="btn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
+            <a href="{% url 'user_purchase' %}" class="myBtn btn fs-14 my-2 p-3 w-75 text-white" style="border-radius:30px; background:#393939;">Оформить покупку</a>
             <br>
             <div style="cursor: pointer;" class="d-flex justify-content-between mt-2 pe-3 ref-link liveToastBtn"
                  data-link="{{ ref_link }}">
@@ -129,28 +129,28 @@
                 <div class="navbar-nav d-block d-lg-none text-uppercase">
                     <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-user me-2"></i>
-                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile' %}">МОЙ КАБИНЕТ</a>
+                        <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'profile' %}">МОЙ КАБИНЕТ</a>
                     </li>
                     <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-bag-shopping me-2"></i>
-                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_accrual' %}">МОИ
+                        <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'profile_accrual' %}">МОИ
                             НАЧИСЛЕНИЯ</a>
                     </li>
                     <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-wallet me-2"></i>
-                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_withdraws' %}">ВЫВОД
+                        <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'profile_withdraws' %}">ВЫВОД
                             СРЕДСТВ</a>
                     </li>
                     <li class="my-2 fs-14 tap-btn">
                         <i class="fa-solid fa-phone-volume me-2"></i>
-                        <a style="color:#808080; text-decoration:none;" href="{% url 'profile_contacts' %}">КОНТАКТЫ</a>
+                        <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'profile_contacts' %}">КОНТАКТЫ</a>
                     </li>
                 </div>
 
                 <div class="my-3 border-top border-bottom text-secondary">
                     <li>
                         <i class="fa-solid fa-video me-2"></i>
-                        <a style="color:#808080; text-decoration:none;"
+                        <a style="color:rgb(213, 113, 62); text-decoration:none;"
                            href="{% url 'profile_videos' %}">
                             Видео-ролики</a>
                     </li>
@@ -159,16 +159,16 @@
                 </div>
                 <li class="tap-btn">
                     <i class="fa-solid fa-gear me-2"></i>
-                    <a style="color:#808080; text-decoration:none;" href="{% url 'settings_profile' %}">Настройки</a>
+                    <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'settings_profile' %}">Настройки</a>
                 </li>
                 <li class="tap-btn">
                     <i class="fa-solid fa-circle-question me-2"></i>
-                    <a style="color:#808080; text-decoration:none;" href="{% url 'profile_support' %}">Обратная
+                    <a style="color:rgb(213, 113, 62); text-decoration:none;" href="{% url 'profile_support' %}">Обратная
                         связь</a>
                 </li>
                 <li class="tap-btn">
                     <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
-                    <a href="{% url 'user_logout' %}" style="color:#808080; text-decoration:none;">Выход</a>
+                    <a href="{% url 'user_logout' %}" style="color:rgb(213, 113, 62); text-decoration:none;">Выход</a>
                 </li>
                 <div class="d-flex align-items-center gap-3 border-top py-2">
                     <div class="fw-bold fs-13 d-block d-lg-none">{{ user_balance }} USD</div>

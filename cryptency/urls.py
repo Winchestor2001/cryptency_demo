@@ -12,7 +12,6 @@ urlpatterns = [
     path('reset_password/', reset_password, name='reset_password'),
     path('profile/purchase/buy/<int:pk>', buy_service, name='buy_service'),
     path('profile/', user_profile, name='profile'),
-    # path('user_referal/<str:ref_link>', check_user_referal, name='check_user_referal'),
     path('user_referal/<str:ref_link>', user_reg, name='check_user_referal'),
     path('auth/email_verify/<str:user_token>', email_verify, name='email_verify'),
     path('profile/accrual/', user_profile_accrual, name='profile_accrual'),

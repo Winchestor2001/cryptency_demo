@@ -27,42 +27,7 @@
                 ></button>
             </div>
             <div class="modal-body">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Doloremque dignissimos fugit assumenda aperiam enim fuga sequi,
-                optio accusantium beatae reprehenderit ut quam, ad reiciendis
-                delectus veniam temporibus perferendis quia cum velit obcaecati
-                sapiente cupiditate. Ducimus perspiciatis, quo consectetur veniam,
-                aliquid eum commodi veritatis molestiae accusantium labore placeat
-                eaque? Tenetur aut harum nesciunt magni quas tempora ad, vitae,
-                sunt in doloremque porro expedita unde eius blanditiis nisi
-                temporibus distinctio iste praesentium suscipit odio atque!
-                Eveniet autem sit natus quos, quod amet eius facere sed
-                repellendus aliquid, voluptates, blanditiis a rerum similique
-                dolorem in fugit quas? Tempora vitae, dolor, voluptas laboriosam
-                libero commodi eius modi est voluptatum porro similique. Odit
-                explicabo consequuntur praesentium ipsa modi! Incidunt omnis
-                nobis, architecto perferendis non, reiciendis ipsam explicabo
-                vero, tempora possimus provident esse aperiam sit! Soluta iusto
-                tempore quam. Quo veritatis eum fugiat aperiam culpa velit cumque
-                repellendus recusandae dolorum officiis ab, adipisci cupiditate
-                nostrum voluptatibus nam aliquam ratione blanditiis! Facilis iusto
-                dicta eligendi velit, ad ullam saepe vero harum deleniti odio
-                quae. Molestiae maiores est fugit, accusamus, dolor, quis
-                voluptate quidem facilis dolore fuga quod doloribus perspiciatis
-                corrupti inventore quos obcaecati cupiditate similique qui veniam
-                itaque. Inventore quod doloremque cum sit eveniet eligendi
-                corrupti quaerat quidem eum, nostrum ea beatae blanditiis, iste
-                ipsam! Illum, dolores facilis aliquam quae optio rerum amet
-                maiores asperiores porro sit consequuntur. Quas cupiditate libero
-                quisquam est odio mollitia eum exercitationem nesciunt repellat ea
-                accusamus, debitis dignissimos doloribus laborum, sequi et eveniet
-                nam eos! Iusto, sapiente in. Vitae, quos inventore quae sed iure
-                eos eveniet, eius earum voluptatum at voluptate. Non nisi error,
-                veritatis deleniti officiis quasi molestiae eos nam itaque labore
-                repudiandae consequuntur nulla placeat nihil autem laudantium.
-                Itaque iste impedit hic quae quis eius sed perferendis. Saepe
-                accusamus consequatur enim totam qui, nesciunt reiciendis eveniet
-                eos asperiores. Quis, voluptatibus!
+                {{ conf_text }}
                 <div class="form-check mt-3 d-flex justify-content-between">
                     <div>
                         <input
@@ -77,7 +42,7 @@
                     <button
                             disabled
                             type="button"
-                            class="btn btn-primary"
+                            class="btn btn-primary myBtn"
                             data-bs-dismiss="modal"
                             id="modal_submit"
                     >
@@ -102,7 +67,7 @@
                 <div class="mb-3">
                     <label class="text-secondary fs-14">Выберите страну</label>
                     <select name="country" class="form-select py-2" id="">
-                        <option value="belarusya">Беларуссия</option>
+                        <option value="belarusya">Беларусь</option>
                         <option value="rossia">Россия</option>
                     </select>
                 </div>
@@ -150,7 +115,7 @@
                 </div>
                 <center>
                     <input name="is_ref" type="text" value="{{ is_ref }}" hidden/>
-                    <button type="submit" id="submit_btn" class="btn btn-warning shadow px-5 my-3">Регистрация</button>
+                    <button type="submit" id="submit_btn" class="myBtn btn btn-warning shadow px-5 my-3">Регистрация</button>
                 </center>
                 {% if status %}
                 <div class="alert alert-warning text-center" role="alert">

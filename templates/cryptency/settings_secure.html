@@ -11,8 +11,7 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-3 ps-4">
-                        <img class="img-fluid"
-                             src="{% static 'images/settings__confirmation-profile.svg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'images/settings__confirmation-profile.svg' %}" alt="">
                     </div>
                     <div class="col-9 p-0">
                         <div class="card-body">
@@ -28,77 +27,153 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 
-
-        <div class="col-12 col-md-6">
-                 <div class="card my-3 m-0 m-md-3">
-            <div class="row g-0">
-                <div class="col-md-3 text-start py-4 ps-4 color">
-                    <i class="fa-solid fa-envelope fa-5x"></i>
+    <div class="row border p-5 my-3 m-0 m-md-3">
+        <form method="post" class="col-12 col-md-8 col-lg-7">
+            {% csrf_token %}
+            <h1>Email почта</h1>
+            <div class="mb-3">
+                <label class="form-label text-secondary fs-14">Укажите новый email почту</label>
+                <div class="input-group">
+                    <input type="email" name="new_email" id="new_email" class="form-control py-2"
+                        placeholder="Email почту" required>
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title fs-14 fw-bold">Email</h5>
-                        <p class="card-text fs-11">В случае Изменения Email на указанный Email мы отправим
-                            <b>код
-                                подтверждения.</b>
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            <a class="btn btn-outline-warning" href="#">Изменить</a>
-                        </div>
+                <div class="recive_code d-none">
+                    <label class="form-label text-secondary fs-14">Укажите код</label>
+                    <div class="input-group">
+                        <input type="text" name="email_code" id="email_code" maxlength="6" minlength="6"
+                            class="form-control py-2" placeholder="Код" required>
                     </div>
+                </div>
+                <p style="font-size: 13px;" class="text-danger mb-4 d-none error_email"></p>
+                <div class="alert alert-success mt-3 d-none email_success" role="alert">
+                    
                 </div>
             </div>
-        </div>
-        </div>
-
-        <div class="row border p-5 my-3 m-0 m-md-3">
-            <form method="post" class="col-12 col-md-8 col-lg-7">
-                {% csrf_token %}
-                <h1>Пароль</h1>
-                <div class="mb-3">
-                    <label class="form-label text-secondary fs-14">Текущий пароль</label>
-                    <div class="input-group">
-                        <input type="password" name="password1" class="form-control py-2 password1"
-                               placeholder="Password" required>
-                        <span class="input-group-text" id="pass1"><i
-                                class="fa-solid fa-eye"></i></span>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label text-secondary fs-14">Новый пароль</label>
-                    <div class="input-group">
-                        <input type="password" name="password2" class="form-control py-2 password2"
-                               placeholder="Password" required>
-                        <span class="input-group-text" id="pass2"><i
-                                class="fa-solid fa-eye"></i></span>
-                    </div>
-                </div>
-                <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
-                минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
-                <div class="mb-3">
-                    <label class="form-label text-secondary fs-14">Повторите пароль</label>
-                    <div class="input-group">
-                        <input type="password" name="password3" class="form-control password3"
-                               placeholder="Password" required>
-                        <span class="input-group-text" id="pass3"><i
-                                class="fa-solid fa-eye"></i></span>
-                    </div>
-                </div>
-                <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
-                <button class="btn btn-warning px-5">Сохранить</button>
-                {% if status %}
-                <div class="alert alert-{{ status_color }} mt-3" role="alert">
-                    {{ status }}
-                </div>
-                {% endif %}
-            </form>
-        </div>
+            <button id="emailBtn" type="button" class="btn btn-warning myBtn px-5 disabled">Отправить код</button>
+            {% if status %}
+            <div class="alert alert-{{ status_color }} mt-3" role="alert">
+                {{ status }}
+            </div>
+            {% endif %}
+        </form>
     </div>
+    <div class="row border p-5 my-3 m-0 m-md-3">
+        <form method="post" class="col-12 col-md-8 col-lg-7">
+            {% csrf_token %}
+            <h1>Пароль</h1>
+            <div class="mb-3">
+                <label class="form-label text-secondary fs-14">Текущий пароль</label>
+                <div class="input-group">
+                    <input type="password" name="password1" class="form-control py-2 password1" placeholder="Password"
+                        required>
+                    <span class="input-group-text" id="pass1"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-secondary fs-14">Новый пароль</label>
+                <div class="input-group">
+                    <input type="password" name="password2" class="form-control py-2 password2" placeholder="Password"
+                        required>
+                    <span class="input-group-text" id="pass2"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+            <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
+                минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
+            <div class="mb-3">
+                <label class="form-label text-secondary fs-14">Повторите пароль</label>
+                <div class="input-group">
+                    <input type="password" name="password3" class="form-control password3" placeholder="Password"
+                        required>
+                    <span class="input-group-text" id="pass3"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+            <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
+            <button class="btn btn-warning myBtn px-5">Сохранить</button>
+            {% if status %}
+            <div class="alert alert-{{ status_color }} mt-3" role="alert">
+                {{ status }}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
 </div>
 
 {% endblock %}
 {% block script %}
 <script src="{% static 'js/settings_secure.js' %}"></script>
+<script>
+    let new_email = document.querySelector('#new_email');
+    let email_btn = document.querySelector('#emailBtn');
+    let error_email = document.querySelector('.error_email');
+    let email_code = document.querySelector('#email_code');
+    let email_success = document.querySelector('.email_success');
+    let recive_code = document.querySelector('.recive_code');
+    new_email.addEventListener('input', () => {
+        $.ajax({
+            url: "{% url 'settings_secure' %}",
+            type: 'get',
+            data: { new_email: new_email.value },
+            success: function (data) {
+                console.log(data);
+                if (data == 'correct') {
+                    error_email.classList.add('d-none');
+                    email_btn.classList.remove('disabled');
+                }
+                else if (data == 'no_email') {
+                    error_email.classList.remove('d-none');
+                    error_email.innerHTML = 'Некорректный адрес почта'
+                }
+                else {
+                    error_email.classList.remove('d-none');
+                    error_email.innerHTML = 'Такой адрес почты уже существует'
+                }
+            }
+        });
+    });
+    email_code.addEventListener('input', () => {
+        $.ajax({
+            url: "{% url 'settings_secure' %}",
+            type: 'get',
+            data: { email_code: email_code.value },
+            success: function (data) {
+                console.log(data);
+                if (data == 'correct') {
+                    email_success.classList.remove('d-none');
+                    email_success.innerHTML = 'Почта изменена'
+                    recive_code.classList.add('d-none');
+                    error_email.classList.add('d-none');
+                    new_email.value = ''
+                }
+                else {
+                    error_email.classList.remove('d-none');
+                    error_email.innerHTML = 'Неверный код'
+                }
+            }
+        });
+    });
+    email_btn.addEventListener('click', () => {
+        email_code.classList.remove('d-none');
+        $.ajax({
+            url: "{% url 'settings_secure' %}",
+            type: 'get',
+            data: { send_code: 'send_code', email: new_email.value },
+            success: function (data) {
+                console.log(data);
+                if (data == 'send') {
+                    recive_code.classList.remove('d-none');
+                    email_success.classList.remove('d-none');
+                    email_success.innerHTML = 'Код отправлен на почту'
+                    setTimeout(() => {
+                        email_success.classList.add('d-none');
+                    }, 3000)
+                }
+            }
+        });
+    });
+
+</script>
 {% endblock %}
