@@ -10,7 +10,7 @@
             <p>Здесь ты можешь оформить заявку на вывод средств</p>
         </div>
         <div class="row p-2">
-            <div class="col-12 col-sm-6 col-lg-4 p-0 pe-sm-2 mt-3 mt-lg-0">
+            <div class="col-12 col-sm-8 col-lg-6 p-0 pe-sm-2 mt-3 mt-lg-0">
                 <div class="card py-4 px-3 h-100  cardKabinet gradientBG border-0 text-white">
                     <div>
                         <p class="fs-13">Доступно к выводу</p>
@@ -21,22 +21,6 @@
                         <a href="#" class="btn btn-light px-4 br-radius disabled">Вывод</a>
                         {% endif %}
                     </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-4 p-0 ps-sm-2 pe-md-0 px-lg-2  mt-3 mt-lg-0">
-                <div class="card py-4 px-3 h-100  cardKabinet">
-                    <p class="fs-13">Ожидает начисления</p>
-                    {% if withdraw_cash %}
-                    <h5 class="fw-bold"><span>{{ withdraw_cash }}</span> <span>USD</span></h5>
-                    {% else %}
-                    <h5 class="fw-bold"><span>0</span> <span>USD</span></h5>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-lg-4 p-0 ps-lg-2 mt-3 mt-lg-0">
-                <div class="card py-4 px-3 h-100  cardKabinet">
-                    <p class="fs-13">Доступно к выводу</p>
-                    <h5 class="fw-bold"><span>{{ user_balance }}</span> <span>USD</span></h5>
                 </div>
             </div>
         </div>
@@ -50,7 +34,7 @@
                 <!--                    <option value="1">Status</option>-->
                 <!--                </select>-->
             </div>
-            {% if ref_static %}
+            {% if refs_static %}
             <div class="table-responsive">
                 <table class="table mt-5 table-responsive">
                     <thead>
@@ -62,12 +46,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for i in ref_static %}
+                    {% for dict_item in refs_static %}
                     <tr>
-                        <td>{{ i.user_name }}</td>
-                        <td>{{ i.service_name }}</td>
-                        <td>{{ i.service_price_prosent }}$</td>
-                        <td>{{ i.service_bougth_date }}</td>
+                        <td>{{ dict_item.name }}</td>
+                        <td>{{ dict_item.service_name }}</td>
+                        <td>{{ dict_item.procent }}$</td>
+                        <td>{{ dict_item.user_pay_date }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>

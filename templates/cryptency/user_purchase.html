@@ -11,12 +11,12 @@
                 <h2 class=" mt-4 fw-bold">Оформить покупку</h2>
                 <p>Выберите один из продуктов</p>
             </div>
-            <div class="col-5 col-sm-4 col-md-3 col-lg-2">
-                <select onchange="selectSimbole()" name="cash" id="cash_simbole" class="form-select">
-                    <option value="usd">USD</option>
-                    <option value="byn">BYN</option>
-                </select>
-            </div>
+<!--            <div class="col-5 col-sm-4 col-md-3 col-lg-2">-->
+<!--                <select onchange="selectSimbole()" name="cash" id="cash_simbole" class="form-select">-->
+<!--                    <option value="usd">USD</option>-->
+<!--                    <option value="byn">BYN</option>-->
+<!--                </select>-->
+<!--            </div>-->
         </div>
         {% if not pay_status %}
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -47,6 +47,7 @@
         </center>
         {% else %}
         {% for service in services %}
+        {% if service.service_visibility %}
         <div class="row bg-light mt-4">
             <div class="col-12 col-md-4 p-md-0">
                 <div class="card purchase_card text-center text-white py-5">
@@ -58,7 +59,7 @@
                     <div class="card-body">
                         <h5 class="card-title my-4 fw-bold">{{service.service_name}}</h5>
                         <h2 id="h2_1" class="card-title my-4 fw-bold">* {{service.service_price1}} USD</h2>
-                        <h2 id="h2_2" class="card-title my-4 fw-bold d-none">* {{service.service_price2}} BYN</h2>
+                        <h2 id="h2_2" class="card-title my-4 fw-bold">* {{service.service_price2}} BYN</h2>
                         <center>
                             <a href="buy/{{ service.pk }}" class="purchase_btn shadow d-inline d-md-none">Купить</a>
                         </center>
@@ -80,6 +81,7 @@
                         class="fa-solid fa-comment-dots me-2"></i>Написать в поддержку</a>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
         {% endif %}
     </div>

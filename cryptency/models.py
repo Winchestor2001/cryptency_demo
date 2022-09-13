@@ -39,6 +39,8 @@ class UsersProfile(models.Model):
     user_reg_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
     user_email_verify = models.BooleanField(default=False, verbose_name='Проверка e-mail')
     user_verify = models.BooleanField(default=False, verbose_name='Верификация')
+    confidention_text = models.BooleanField(default=True, verbose_name='Политика сайта')
+    user_data_confidention_text = models.BooleanField(default=True, verbose_name='Обработка данных клиента')
     user_referal_email1 = models.CharField(max_length=50, default='none', null=True,
                                            verbose_name='Реферал по E-mail уровень-1')
     user_referal_email2 = models.CharField(max_length=50, default='none', null=True,
@@ -94,6 +96,7 @@ class AdminConfigs(models.Model):
     withdraw_sum = models.IntegerField(verbose_name='Мин. сумма вывода')
     card_number = models.CharField(max_length=100, verbose_name='Номер карты')
     confidention_text = models.TextField(verbose_name='Политика сайта текст')
+    user_data_confidention_text = models.TextField(verbose_name='Политика обработке данных клиента текст')
 
     class Meta:
         verbose_name = "Админ конфигурация"

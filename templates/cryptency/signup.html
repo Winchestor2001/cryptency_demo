@@ -7,127 +7,114 @@
 
 
 {% block content %}
-<!--modal-->
-<div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-scrollable h-75">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Правила сайта</h5>
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
+<!--modal-1-->
+<div id="myModal1" class="modal">
+    <div class="modal-content">
+        <div class="header_modal border-bottom p-3">
+            <p>Правила сайта</p>
+            <span id="close1" class="close">&times;</span>
+        </div>
+        <div class="body_modal p-3">
+            <p>{{ conf_text }}</p>
+        </div>
+        <div class="footer_modal p-3 border-top d-flex justify-content-between">
+            <div>
+                <input type="checkbox" id="chek1"/>
+            <label for="chek1">Согласень с политикой сайта</label>
             </div>
-            <div class="modal-body">
-                {{ conf_text }}
-                <div class="form-check mt-3 d-flex justify-content-between">
-                    <div>
-                        <input
-                                class="form-check-input"
-                                type="checkbox"
-                                id="flexCheckDefault2"
-                        />
-                        <label class="form-check-label" for="flexCheckDefault2">
-                            Соглашаюсь с политикой сайта
-                        </label>
-                    </div>
-                    <button
-                            disabled
-                            type="button"
-                            class="btn btn-primary myBtn"
-                            data-bs-dismiss="modal"
-                            id="modal_submit"
-                    >
-                        Принять
-                    </button>
-                </div>
-
+            <div><button class="btn myBtn" id="click1">Принять</button></div>
+        </div>
+    </div>
+</div>
+<!--modal-1-->
+<div id="myModal2" class="modal">
+    <div class="modal-content">
+        <div class="header_modal border-bottom p-3">
+            <p>Соглашение на обработку персональных данных</p>
+            <span id="close2" class="close">&times;</span>
+        </div>
+        <div class="body_modal p-3">
+            <p>{{ conf_text2 }}</p>
+        </div>
+        <div class="footer_modal border-top p-3 d-flex justify-content-between">
+            <div>
+                <input type="checkbox" id="chek2"/>
+            <label for="chek2">Согласен на обработку персональных данных</label>
             </div>
-            <div class="modal-footer">
-
-            </div>
+            <div><button class="btn myBtn me-0" id="click2">Принять</button></div>
         </div>
     </div>
 </div>
 
 
 <div class="container justify-content-center">
-        <div class="singupCard shadow">
-            <form method="post" class="p-4">
-                {% csrf_token %}
-                <h2 class="mb-4 fw-bold text-center">Регистрация</h2>
-                <div class="mb-3">
-                    <label class="text-secondary fs-14">Выберите страну</label>
-                    <select name="country" class="form-select py-2" id="">
-                        <option value="belarusya">Беларусь</option>
-                        <option value="rossia">Россия</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="text-secondary fs-14">Имя</label>
-                    <input type="text" name="name" class="form-control py-2">
-                </div>
-                <div class="mb-3">
-                    <label class="text-secondary fs-14">Фамилия</label>
-                    <input type="text" name="surname" class="form-control py-2">
-                </div>
-                <div class="email mb-3">
-                    <label class="text-secondary fs-14">Введи свой Email</label>
-                    <input type="email" name="email" class="form-control email_inp py-2">
-                </div>
-                <div>
-                    <label class="text-secondary fs-14">Придумайте пароль</label>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password1" class="form-control password1 py-2"
-                               placeholder="Password">
-                        <span class="input-group-text bg-transparent" id="pass1"><i class="fa-solid fa-eye"></i></span>
-                    </div>
-                </div>
-                <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
-                    минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
-                <div>
-                    <label class="text-secondary fs-14">Повторите пароль</label>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password2" class="form-control password2 py-2" placeholder="Password">
-                        <span class="input-group-text bg-transparent" id="pass2"><i class="fa-solid fa-eye"></i></span>
-                    </div>
-                </div>
-                <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
-                <div class="form-check">
-                    <input
-                            class="form-check-input"
-                            type="checkbox"
-                            id="flexCheckDefault"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Соглашаюсь с политикой сайта
-                    </label>
-                </div>
-                <center>
-                    <input name="is_ref" type="text" value="{{ is_ref }}" hidden/>
-                    <button type="submit" id="submit_btn" class="myBtn btn btn-warning shadow px-5 my-3">Регистрация</button>
-                </center>
-                {% if status %}
-                <div class="alert alert-warning text-center" role="alert">
-                    {{ status }}
-                </div>
-                {% endif %}
-            </form>
-            <div class="bg-light text-center p-3">
-                <a href="{% url 'user_login' %}">Войти</a>
-                <p class="text-secondary">Если у тебя есть аккаунт</p>
+    <div class="singupCard shadow">
+        <a class="navbar-brand d-flex align-items-center m-2" href="#">
+            <img class="navbar_img" style="width: 35px;"
+                 src="{% static 'images/IMG_20220823_220346-removebg-preview.png' %}"
+                 alt="">
+            <h4 style="margin-top: 10px;" class="fw-bold">Cryptency</h4>
+        </a>
+        <form method="post" class="p-4">
+            {% csrf_token %}
+            <h2 class="mb-4 fw-bold text-center">Регистрация</h2>
+            <div class="mb-3">
+                <label class="text-secondary fs-14">Выберите страну</label>
+                <select name="country" class="form-select py-2" id="">
+                    <option value="belarusya">Беларусь</option>
+                    <option value="rossia">Россия</option>
+                </select>
             </div>
+            <div class="mb-3">
+                <label class="text-secondary fs-14">Имя</label>
+                <input type="text" name="name" class="form-control py-2">
+            </div>
+            <div class="mb-3">
+                <label class="text-secondary fs-14">Фамилия</label>
+                <input type="text" name="surname" class="form-control py-2">
+            </div>
+            <div class="email mb-3">
+                <label class="text-secondary fs-14">Введи свой Email</label>
+                <input type="email" name="email" class="form-control email_inp py-2">
+            </div>
+            <div>
+                <label class="text-secondary fs-14">Придумайте пароль</label>
+                <div class="input-group mb-3">
+                    <input type="password" name="password1" class="form-control password1 py-2"
+                           placeholder="Password">
+                    <span class="input-group-text bg-transparent" id="pass1"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+            <p style="font-size: 13px;" class="text-danger mb-4 p-2 bg-light dNone error">Не менее 8 символов;<br>как
+                минимум одна заглавная и одна строчная буква;<br>как минимум одна цифра;</p>
+            <div>
+                <label class="text-secondary fs-14">Повторите пароль</label>
+                <div class="input-group mb-3">
+                    <input type="password" name="password2" class="form-control password2 py-2" placeholder="Password">
+                    <span class="input-group-text bg-transparent" id="pass2"><i class="fa-solid fa-eye"></i></span>
+                </div>
+            </div>
+            <p style="font-size: 13px;" class="text-danger mb-4 dNone error1">Пароль не совпадает</p>
+            <input type="checkbox" id="inp1"/>
+            <label for="inp1">Согласень с политикой сайта</label><br>
+            <input type="checkbox" id="inp2"/>
+            <label for="inp2">Согласен на обработку персональных данных</label>
+            <center>
+                <input name="is_ref" type="text" value="{{ is_ref }}" hidden/>
+                <button disabled type="submit" id="submit" class="myBtn btn btn-warning shadow px-5 my-3">Регистрация
+                </button>
+            </center>
+            {% if status %}
+            <div class="alert alert-warning text-center" role="alert">
+                {{ status }}
+            </div>
+            {% endif %}
+        </form>
+        <div class="bg-light text-center p-3">
+            <a href="{% url 'user_login' %}">Войти</a>
+            <p class="text-secondary">Если у тебя есть аккаунт</p>
         </div>
+    </div>
 
 </div>
 {% endblock %}
@@ -135,27 +122,6 @@
 
 {% block script %}
 <script src="{% static 'js/user.js' %}"></script>
-<script>
-      let checkbox = document.querySelector('#flexCheckDefault');
-      let checkbox2 = document.querySelector('#flexCheckDefault2');
-      let modal_submit = document.querySelector('#modal_submit');
-      let submit_btn = document.querySelector('#submit_btn');
-      submit_btn.disabled = true;
-      checkbox.addEventListener('click', function() {
-        if (checkbox.checked){
-          checkbox.checked = false;
-        }
-      })
-      checkbox2.addEventListener('click', function() {
-        modal_submit.disabled = false;
-      });
-      modal_submit.addEventListener('click', function() {
-        checkbox.checked = true;
-        submit_btn.disabled = false;
-      })
-
-
-</script>
 
 {% endblock %}
 

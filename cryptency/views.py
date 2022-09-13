@@ -48,7 +48,7 @@ def home_page(request):
 
 def user_reg(request, ref_link=None):
     configs = AdminConfigs.objects.all().values()
-    context = {'conf_text': configs[0]['confidention_text']}
+    context = {'conf_text': configs[0]['confidention_text'], 'conf_text2': configs[0]['user_data_confidention_text']}
     if request.method == 'POST':
         name = request.POST['name']
         surname = request.POST['surname']
