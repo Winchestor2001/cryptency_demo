@@ -18,10 +18,11 @@ from django.contrib.auth.decorators import login_required
 from .models import UsersProfile, UsersEmailVerifyTokens, Services, UserSecureData, UsersPayChecks, Videos, \
     AdminConfigs, UsersWithdraw, UserReferalsService
 
-site_domen_link = 'http://127.0.0.1:8000'
+# site_domen_link = 'http://127.0.0.1:8000'
 
 
-# site_domen_link = 'https://cryptency.pythonanywhere.com'
+site_domen_link = 'https://cryptency.by'
+# site_domen_link = 'http://crypten1.iron.hostflyby.net'
 
 
 def save_avatar(request, user_email):
@@ -83,7 +84,7 @@ def user_reg(request, ref_link=None):
         context['status'] = 'Для продолжения работы подтвердите свою почту'
         html = render_to_string(
             'cryptency/email_body.html',
-            {'verify_url': f'{site_domen_link}/auth/email_verify/{token}'}
+            {'verify_url': f'{site_domen_link}/auth/email_verify/{token}', 'domain': site_domen_link}
         )
         send_mail('Cryptency - подтверждение почты', 'Пожалуста подтвердите почту', settings.EMAIL_HOST_USER, [email],
                   html_message=html,
@@ -110,12 +111,12 @@ def user_login(request):
                     login(request, user)
                     return redirect('profile')
                 else:
-                    context['status'] = 'Почта или пароль не правельный'
+                    context['status'] = 'Почта или пароль не правильный'
             else:
                 context['status'] = 'Ваша почта не подтверждена'
         except Exception as ex:
             print(ex)
-            context['status'] = 'Это почта не зарегистрирована'
+            context['status'] = 'Эта почта не зарегистрирована'
     return render(request, 'cryptency/signin.html', context=context)
 
 
@@ -654,7 +655,7 @@ def settings_secure(request):
                 return render(request, 'cryptency/settings_secure.html',
                               context={'status': 'Пароль сохранен', 'status_color': 'success'})
             return render(request, 'cryptency/settings_secure.html',
-                          context={'status': 'Пароль не совпадает', 'status_color': 'warning'})
+                          context={'status': 'Пароли не совпадают', 'status_color': 'warning'})
         except Exception as ex:
             print(ex)
             redirect('/')

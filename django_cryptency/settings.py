@@ -24,24 +24,28 @@ SECRET_KEY = 'django-insecure-s15+x$=ewkk24639k4txat^#3w^=0nblq3qxof+*h%4#97m^5$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# crypten1.iron.hostflyby.net
+ALLOWED_HOSTS = ['www.lkcryptency.by', 'lkcryptency.by']
+# ALLOWED_HOSTS = ['www.cryptency.by', 'cryptency.by']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'djoser',
     'cryptency',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'django_cryptency.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,11 +81,21 @@ WSGI_APPLICATION = 'django_cryptency.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'cryptency_db',
-#         'USER': 'postgres',
-#         'PASSWORD': '888888',
+#         'NAME': 'crypten1_db',
+#         'USER': 'crypten1_root',
+#         'PASSWORD': 'BN78D6T8MzXwCBC',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'crypten1_db',
+#         'USER': 'crypten1_root',
+#         'PASSWORD': 'BN78D6T8MzXwCBC',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
 #     }
 # }
 DATABASES = {
@@ -124,10 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    STATIC_DIR,
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [
+#     STATIC_DIR,
+# ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -138,11 +155,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bsayfiddinov3@gmail.com'
-EMAIL_HOST_PASSWORD = 'igzcgzqnlzvhnklk'
+EMAIL_HOST = 'mail.cryptency.by'
+EMAIL_HOST_USER = 'info@cryptency.by'
+EMAIL_HOST_PASSWORD = '6ET9ptyRmLQWgdH'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'bsayfiddinov3@gmail.com'
+# EMAIL_HOST_PASSWORD = 'igzcgzqnlzvhnklk'
+# EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
 
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = '/'
